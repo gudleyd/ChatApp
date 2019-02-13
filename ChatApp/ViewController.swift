@@ -10,47 +10,48 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var stateLogger: StateLogger = StateLogger(initialState: "init()", instanceName: "ViewController")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        ifDebugPrint(#function)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        ifDebugPrint(#function)
+        stateLogger.logState()
     }
 }
 
