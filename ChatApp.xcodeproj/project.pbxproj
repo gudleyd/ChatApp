@@ -1,5 +1,4 @@
 // !$*UTF8*$!
-/*      */
 {
 	archiveVersion = 1;
 	classes = {
@@ -9,24 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		2307FFE9220CB2B1008D351D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFE8220CB2B1008D351D /* AppDelegate.swift */; };
-		2307FFEB220CB2B1008D351D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFEA220CB2B1008D351D /* ViewController.swift */; };
-		2307FFEE220CB2B1008D351D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2307FFEC220CB2B1008D351D /* Main.storyboard */; };
+		2307FFEB220CB2B1008D351D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFEA220CB2B1008D351D /* ProfileViewController.swift */; };
+		2307FFEE220CB2B1008D351D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2307FFEC220CB2B1008D351D /* Profile.storyboard */; };
 		2307FFF1220CB2B1008D351D /* ChatApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFEF220CB2B1008D351D /* ChatApp.xcdatamodeld */; };
 		2307FFF3220CB2B3008D351D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2307FFF2220CB2B3008D351D /* Assets.xcassets */; };
 		2307FFF6220CB2B3008D351D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2307FFF4220CB2B3008D351D /* LaunchScreen.storyboard */; };
 		2307FFFE220CBC03008D351D /* service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFFD220CBC03008D351D /* service.swift */; };
+		23766689221995AB00CA3811 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23766688221995AB00CA3811 /* CustomImageView.swift */; };
+		2376668C2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2376668B2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift */; };
+		2376668E2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2376668D2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift */; };
+		23945069221718FF0046F60F /* ServicePictures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23945068221718FF0046F60F /* ServicePictures.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2307FFE5220CB2B1008D351D /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2307FFE8220CB2B1008D351D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2307FFEA220CB2B1008D351D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2307FFED220CB2B1008D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2307FFEA220CB2B1008D351D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2307FFED220CB2B1008D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
 		2307FFF0220CB2B1008D351D /* ChatApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatApp.xcdatamodel; sourceTree = "<group>"; };
 		2307FFF2220CB2B3008D351D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2307FFF5220CB2B3008D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2307FFF7220CB2B3008D351D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2307FFFD220CBC03008D351D /* service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = service.swift; sourceTree = "<group>"; };
+		23766688221995AB00CA3811 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		2376668B2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController-ImagePickerControllerDelegate.swift"; sourceTree = "<group>"; };
+		2376668D2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController-NavigationViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		23945068221718FF0046F60F /* ServicePictures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ServicePictures.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,16 +66,28 @@
 		2307FFE7220CB2B1008D351D /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				2376668A2219B62400CA3811 /* Extensions */,
 				2307FFE8220CB2B1008D351D /* AppDelegate.swift */,
-				2307FFEA220CB2B1008D351D /* ViewController.swift */,
+				2307FFEA220CB2B1008D351D /* ProfileViewController.swift */,
+				23766688221995AB00CA3811 /* CustomImageView.swift */,
 				2307FFFD220CBC03008D351D /* service.swift */,
-				2307FFEC220CB2B1008D351D /* Main.storyboard */,
+				2307FFEC220CB2B1008D351D /* Profile.storyboard */,
 				2307FFF2220CB2B3008D351D /* Assets.xcassets */,
 				2307FFF4220CB2B3008D351D /* LaunchScreen.storyboard */,
 				2307FFF7220CB2B3008D351D /* Info.plist */,
 				2307FFEF220CB2B1008D351D /* ChatApp.xcdatamodeld */,
+				23945068221718FF0046F60F /* ServicePictures.xcassets */,
 			);
 			path = ChatApp;
+			sourceTree = "<group>";
+		};
+		2376668A2219B62400CA3811 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2376668B2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift */,
+				2376668D2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,9 +148,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23945069221718FF0046F60F /* ServicePictures.xcassets in Resources */,
 				2307FFF6220CB2B3008D351D /* LaunchScreen.storyboard in Resources */,
 				2307FFF3220CB2B3008D351D /* Assets.xcassets in Resources */,
-				2307FFEE220CB2B1008D351D /* Main.storyboard in Resources */,
+				2307FFEE220CB2B1008D351D /* Profile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,20 +164,23 @@
 			files = (
 				2307FFF1220CB2B1008D351D /* ChatApp.xcdatamodeld in Sources */,
 				2307FFFE220CBC03008D351D /* service.swift in Sources */,
-				2307FFEB220CB2B1008D351D /* ViewController.swift in Sources */,
+				2307FFEB220CB2B1008D351D /* ProfileViewController.swift in Sources */,
+				2376668C2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift in Sources */,
 				2307FFE9220CB2B1008D351D /* AppDelegate.swift in Sources */,
+				23766689221995AB00CA3811 /* CustomImageView.swift in Sources */,
+				2376668E2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2307FFEC220CB2B1008D351D /* Main.storyboard */ = {
+		2307FFEC220CB2B1008D351D /* Profile.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2307FFED220CB2B1008D351D /* Base */,
 			);
-			name = Main.storyboard;
+			name = Profile.storyboard;
 			sourceTree = "<group>";
 		};
 		2307FFF4220CB2B3008D351D /* LaunchScreen.storyboard */ = {
