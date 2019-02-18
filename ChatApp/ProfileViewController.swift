@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController {
         
         Debugger.shared.Print("editButton frame in viewDidAppear: \(editButton.frame)")
         /*
-            Потому что мы во viewDidLoad мы загрузили view со storyboard'а, а там у нас iPhone SE, а
+            Потому что во viewDidLoad мы загрузили view со storyboard'а, а там у нас iPhone SE, а
             autolayout к тому моменту еще не произошел
          */
     }
