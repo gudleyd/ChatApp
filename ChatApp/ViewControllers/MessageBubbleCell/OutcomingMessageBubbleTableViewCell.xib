@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomingMessageBubbleTableViewCell" rowHeight="171" id="KGk-i7-Jjw" customClass="MessageBubbleTableViewCell" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="324" height="171"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="324" height="170.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3wt-I2-xxO" userLabel="backgroundView">
+                        <rect key="frame" x="258" y="11" width="50" height="149"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0a-1d-hgG">
+                                <rect key="frame" x="4" y="4" width="42" height="141"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="E0a-1d-hgG" secondAttribute="bottom" constant="4" id="AmS-0m-a1P"/>
+                            <constraint firstItem="E0a-1d-hgG" firstAttribute="leading" secondItem="3wt-I2-xxO" secondAttribute="leading" constant="4" id="GpO-C6-OVW"/>
+                            <constraint firstItem="E0a-1d-hgG" firstAttribute="top" secondItem="3wt-I2-xxO" secondAttribute="top" constant="4" id="LsZ-uv-Ylv"/>
+                            <constraint firstAttribute="trailing" secondItem="E0a-1d-hgG" secondAttribute="trailing" constant="4" id="WNr-dK-YUt"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="3wt-I2-xxO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="9Y4-n4-OYZ"/>
+                    <constraint firstItem="3wt-I2-xxO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="kQm-Vm-Ufs"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3wt-I2-xxO" secondAttribute="bottom" id="l7u-FV-hFf"/>
+                    <constraint firstItem="3wt-I2-xxO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="100" identifier="left" id="vnO-Yu-3n2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="background" destination="3wt-I2-xxO" id="TtL-HQ-HmK"/>
+                <outlet property="messageTextLabel" destination="E0a-1d-hgG" id="w9f-xA-Pzp"/>
+            </connections>
+            <point key="canvasLocation" x="-776" y="70"/>
+        </tableViewCell>
+    </objects>
+</document>

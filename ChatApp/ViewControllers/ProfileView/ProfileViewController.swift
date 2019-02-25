@@ -70,6 +70,10 @@ class ProfileViewController: UIViewController {
         statusLabel.text = "люблю спортивное программирование🔥🔥 и все что с ним связано😜😜 алгоритмы сортировки 💕💕😎👌графы😍😍😲 рекурсия 😈😈 📈😆🤘дискретная математика💗💗"
     }
     
+    @IBAction func dismissButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func createUIImagePickerController(delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate),
                                        sourceType: UIImagePickerController.SourceType,
                                        allowEditing: Bool = true)
