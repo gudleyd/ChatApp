@@ -31,6 +31,7 @@ var exampleChats : [ChatModel] = [
 
 import UIKit
 
+
 class ConversationsListViewController : UIViewController {
     
     @IBOutlet private var tableView: UITableView!
@@ -48,6 +49,8 @@ class ConversationsListViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setTheme(UserDefaults.loadTheme())
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         tableView.rowHeight = 80
@@ -78,6 +81,20 @@ class ConversationsListViewController : UIViewController {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+    
+    @IBAction func themePickerOpenButtonClicked(_ sender: Any) {
+        // Swift
+        let sThemePickerViewController = SThemePickerViewController(closure: {
+            [weak self] theme in
+            self?.setTheme(theme)
+        });
+        self.present(sThemePickerViewController, animated: true, completion: nil);
+        
+        // Obj-C
+//        let themePickerViewController = ThemePickerViewController()
+//        themePickerViewController.setDelegate(self)
+//        self.present(themePickerViewController, animated: true, completion: nil);
     }
 }
 
@@ -121,9 +138,9 @@ extension ConversationsListViewController : UITableViewDataSource {
             chatModel = offlineChats[indexPath.row]
         }
         if searchController.isActive {
-            searchController.dismiss(animated: true, completion: {
-                self.performSegue(withIdentifier: "ToChatView", sender: chatModel)
-                self.tableView.deselectRow(at: indexPath, animated: true)
+            searchController.dismiss(animated: true, completion: { [weak self] in
+                self?.performSegue(withIdentifier: "ToChatView", sender: chatModel)
+                self?.tableView.deselectRow(at: indexPath, animated: true)
             })
         } else {
             self.performSegue(withIdentifier: "ToChatView", sender: chatModel)

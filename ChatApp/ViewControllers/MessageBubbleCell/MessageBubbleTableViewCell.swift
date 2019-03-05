@@ -45,4 +45,8 @@ class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProto
             self.background.backgroundColor = UIColor(red: 102/255, green: 155/255, blue: 200/255, alpha: 1)
         }
     }
+    
+    @IBAction func openThemePicker(_ sender: Any) {
+        
+    }
 }

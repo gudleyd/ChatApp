@@ -79,7 +79,6 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
             lastMessageDateLabel.text = ""
         }
         
-        unreadMessagesLabel.isHidden = !hasUnreadMessages
         
         if online ?? false {
             self.backgroundColor = UIColor(red: 127/255, green: 255/255, blue: 0/255, alpha: 0.1)
@@ -93,6 +92,9 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
             lastMessageLabel.text = "Нет Сообщений"
             lastMessageLabel.font = UIFont(name: "Open Sans", size: 20)
             lastMessageLabel.textColor = UIColor.red
+            hasUnreadMessages = false
         }
+        
+        unreadMessagesLabel.isHidden = !hasUnreadMessages
     }
 }

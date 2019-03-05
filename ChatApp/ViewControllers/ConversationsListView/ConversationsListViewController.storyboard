@@ -61,6 +61,11 @@
                         <viewLayoutGuide key="safeArea" id="9UI-L9-nWc"/>
                     </view>
                     <navigationItem key="navigationItem" title="Чаты" id="mt0-6Q-bQI">
+                        <barButtonItem key="leftBarButtonItem" title="Темы" id="biv-Fo-gcU">
+                            <connections>
+                                <action selector="themePickerOpenButtonClicked:" destination="46J-Kx-VAo" id="o4C-SB-eXA"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="user-profile-icon" id="Coe-e9-RX7">
                             <connections>
                                 <segue destination="foL-jZ-w0f" kind="presentation" id="FFR-FO-ech"/>

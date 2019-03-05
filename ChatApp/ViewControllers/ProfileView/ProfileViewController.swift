@@ -86,9 +86,9 @@ class ProfileViewController: UIViewController {
     }
     
     func deleteProfileImage() {
-        profileImageView.closeBlind(completionHandler: {
-            self.profileImageView.image = self.defaultProfileImage
-            self.profileImageView.openBlind()
+        profileImageView.closeBlind(completionHandler: { [weak self] in
+            self?.profileImageView.image = self?.defaultProfileImage
+            self?.profileImageView.openBlind()
         })
     }
     
@@ -157,8 +157,8 @@ class ProfileViewController: UIViewController {
             self.openGallery()
         }))
         
-        let deleteProfileImageAction = UIAlertAction(title: "Удалить фотографию", style: .default, handler: { _ in
-            self.deleteProfileImage()
+        let deleteProfileImageAction = UIAlertAction(title: "Удалить фотографию", style: .default, handler: { [weak self] _ in
+            self?.deleteProfileImage()
         })
         deleteProfileImageAction.isEnabled = (profileImageView.image != defaultProfileImage)
         deleteProfileImageAction.setValue(UIColor.red, forKey: "titleTextColor")

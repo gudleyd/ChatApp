@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,29 +15,29 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ProfileViewController" customModule="ChatApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iAY-CZ-hYW" customClass="CustomImageView" customModule="ChatApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="63" width="288" height="288"/>
+                                <rect key="frame" x="16" y="63" width="343" height="343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iAY-CZ-hYW" secondAttribute="height" multiplier="1:1" id="zRb-ky-oiv"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZN-Ip-FCg">
-                                <rect key="frame" x="16" y="359" width="288" height="33.5"/>
+                                <rect key="frame" x="16" y="414" width="343" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Description Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lya-Ej-ZJ6">
-                                <rect key="frame" x="16" y="400.5" width="288" height="20.5"/>
+                                <rect key="frame" x="16" y="455.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLS-Dr-UrD">
-                                <rect key="frame" x="16" y="516" width="288" height="44"/>
+                                <rect key="frame" x="16" y="615" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="XiW-zJ-kMn"/>
                                 </constraints>
@@ -47,7 +47,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bI-Mf-rxy">
-                                <rect key="frame" x="238.5" y="285.5" width="57.5" height="57.5"/>
+                                <rect key="frame" x="282.5" y="329.5" width="68.5" height="68.5"/>
                                 <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9bI-Mf-rxy" secondAttribute="height" multiplier="1:1" id="3SZ-aV-Ep5"/>
@@ -57,12 +57,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYy-hn-aie">
-                                <rect key="frame" x="16" y="20" width="41" height="35"/>
+                                <rect key="frame" x="324" y="20" width="35" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="gYy-hn-aie" secondAttribute="height" multiplier="7:6" id="3HU-PP-vYD"/>
+                                    <constraint firstAttribute="width" secondItem="gYy-hn-aie" secondAttribute="height" multiplier="1:1" id="3HU-PP-vYD"/>
                                     <constraint firstAttribute="height" constant="35" id="zht-X5-zKz"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="back-button"/>
+                                <state key="normal" title="Button" image="dismiss-button"/>
                                 <connections>
                                     <action selector="dismissButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6tr-DM-vHE"/>
                                 </connections>
@@ -85,9 +85,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lya-Ej-ZJ6" secondAttribute="trailing" constant="16" id="jOV-5X-bNT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NLS-Dr-UrD" secondAttribute="trailing" constant="16" id="rsW-BF-eqT"/>
                             <constraint firstItem="9bI-Mf-rxy" firstAttribute="trailing" secondItem="iAY-CZ-hYW" secondAttribute="trailing" constant="-8" id="rx4-wO-uSh"/>
-                            <constraint firstItem="gYy-hn-aie" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sbk-b0-b6i"/>
+                            <constraint firstItem="gYy-hn-aie" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sbk-b0-b6i"/>
                             <constraint firstItem="NLS-Dr-UrD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lya-Ej-ZJ6" secondAttribute="bottom" constant="8" id="tAW-tH-DZ1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gYy-hn-aie" secondAttribute="trailing" constant="8" id="y3z-tn-EtE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gYy-hn-aie" secondAttribute="trailing" constant="16" id="y3z-tn-EtE"/>
                             <constraint firstItem="NLS-Dr-UrD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="yPW-6F-ycR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -106,6 +106,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back-button" width="100" height="100"/>
+        <image name="dismiss-button" width="50" height="50"/>
     </resources>
 </document>
