@@ -25,7 +25,7 @@
     model = [[ThemeModel alloc] init];
     [model setTheme1:[UIColor whiteColor]];
     [model setTheme2:[UIColor blackColor]];
-    [model setTheme3:[[UIColor alloc] initWithRed:251.0/255.0 green:125.0/255.0 blue:251.0/255.0 alpha:1]];
+    [model setTheme3:[[[UIColor alloc] initWithRed:251.0/255.0 green:125.0/255.0 blue:251.0/255.0 alpha:1] autorelease]];
     
     
     [[self view] setBackgroundColor:[UIColor whiteColor]];
