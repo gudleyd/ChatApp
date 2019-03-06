@@ -84,6 +84,7 @@ class ConversationsListViewController : UIViewController {
     }
     
     @IBAction func themePickerOpenButtonClicked(_ sender: Any) {
+        //Switcher1
         // Swift
         let sThemePickerViewController = SThemePickerViewController(closure: {
             [weak self] theme in
