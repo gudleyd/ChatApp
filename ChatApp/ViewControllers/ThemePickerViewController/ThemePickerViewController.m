@@ -64,59 +64,50 @@
     [[[stackView centerYAnchor] constraintEqualToAnchor:[[self view] centerYAnchor]] setActive:true];
 }
 
+- (ThemeModel *)model {
+    return self->model;
+}
 
--(void) close: (NSObject*) sender
-{
+- (void)setModel:(ThemeModel *)newModel {
+    self->model = newModel;
+}
+
+- (void)setDelegate:(id<ThemePickerViewControllerDelegate>)delegateToSet {
+    if (delegate != delegateToSet) {
+        [delegateToSet retain];
+        [self->delegate release];
+        self->delegate = delegateToSet;
+    }
+}
+
+-(void) close: (NSObject*) sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
--(void) setTheme1: (NSObject*) sender
-{
+-(void) setTheme1: (NSObject*) sender {
     [[self view] setBackgroundColor:[model theme1]];
     [[self delegate] themePickerViewController:self newTheme:[model theme1]];
 }
 
--(void) setTheme2: (NSObject*) sender
-{
+-(void) setTheme2: (NSObject*) sender {
     [[self view] setBackgroundColor:[model theme2]];
     [[self delegate] themePickerViewController:self newTheme:[model theme2]];
 }
 
--(void) setTheme3: (NSObject*) sender
-{
+-(void) setTheme3: (NSObject*) sender {
     [[self view] setBackgroundColor:[model theme3]];
     [[self delegate] themePickerViewController:self newTheme:[model theme3]];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[self model] release];
     [super dealloc];
 }
 
-
-- (void)setDelegate:(id<ThemePickerViewControllerDelegate>)newDelegate
-{
-    if (delegate != newDelegate) {
-        [newDelegate retain];
-        [self->delegate release];
-        self->delegate = newDelegate;
-    }
-}
-- (id<ThemePickerViewControllerDelegate>)delegate
-{
+- (id<ThemePickerViewControllerDelegate>)delegate {
     return self->delegate;
 }
 
-- (ThemeModel *)model
-{
-    return self->model;
-}
-
-- (void)setModel:(ThemeModel *)newModel
-{
-    self->model = newModel;
-}
 /*
 #pragma mark - Navigation
 
