@@ -43,9 +43,9 @@
 }
 
 - (void)dealloc {
-    [[self theme1] release];
-    [[self theme2] release];
-    [[self theme3] release];
+    [self->theme1 release];
+    [self->theme2 release];
+    [self->theme3 release];
     [super dealloc];
 }
 

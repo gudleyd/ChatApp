@@ -68,8 +68,10 @@
     return self->model;
 }
 
-- (void)setModel:(ThemeModel *)newModel {
-    self->model = newModel;
+- (void)setModel:(ThemeModel *) model {
+    [model retain];
+    [self->model release];
+    self->model = model;
 }
 
 - (void)setDelegate:(id<ThemePickerViewControllerDelegate>)delegateToSet {
@@ -100,6 +102,13 @@
 }
 
 - (void)dealloc {
+    
+    [self->closeButton release];
+    [self->theme1Button release];
+    [self->theme2Button release];
+    [self->theme3Button release];
+    [self->stackView release];
+    
     [[self model] release];
     [super dealloc];
 }
