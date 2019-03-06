@@ -12,50 +12,41 @@
 @implementation ThemeModel
 
 
-- (UIColor *)theme1
-{
+- (UIColor *)theme1 {
     return self->theme1;
 }
 
-- (UIColor *)theme2
-{
+- (UIColor *)theme2 {
     return self->theme2;
 }
 
-- (UIColor *)theme3
-{
+- (UIColor *)theme3 {
     return self->theme3;
 }
 
-- (void)setTheme1:(UIColor *)newColor
-{
-    [newColor retain];
+- (void)setTheme1:(UIColor *)color {
+    [color retain];
     [self->theme1 release];
-    self->theme1 = newColor;
+    self->theme1 = color;
 }
 
-- (void)setTheme2:(UIColor *)newColor
-{
-    [newColor retain];
+- (void)setTheme2:(UIColor *)color {
+    [color retain];
     [self->theme2 release];
-    self->theme2 = newColor;
+    self->theme2 = color;
 }
 
-- (void)setTheme3:(UIColor *)newColor
-{
-    [newColor retain];
+- (void)setTheme3:(UIColor *)color {
+    [color retain];
     [self->theme3 release];
-    self->theme3 = newColor;
+    self->theme3 = color;
 }
 
-- (id)initWithColors:(UIColor *)theme1Color c1:(UIColor *)theme2Color c2:(UIColor *)theme3Color
-{
-    self = [self init];
-    [self setTheme1:theme1Color];
-    [self setTheme2:theme2Color];
-    [self setTheme3:theme3Color];
-    
-    return self;
+- (void)dealloc {
+    [[self theme1] release];
+    [[self theme2] release];
+    [[self theme3] release];
+    [super dealloc];
 }
 
 @end

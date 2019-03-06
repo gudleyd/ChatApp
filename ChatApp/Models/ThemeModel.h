@@ -23,9 +23,9 @@
 -(UIColor*) theme2;
 -(UIColor*) theme3;
 
--(void) setTheme1: (UIColor*) newColor;
--(void) setTheme2: (UIColor*) newColor;
--(void) setTheme3: (UIColor*) newColor;
+-(void) setTheme1: (UIColor*) color;
+-(void) setTheme2: (UIColor*) color;
+-(void) setTheme3: (UIColor*) color;
 
 @end
 
