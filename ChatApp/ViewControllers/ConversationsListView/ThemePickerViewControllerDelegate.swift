@@ -33,6 +33,8 @@ extension ConversationsListViewController {
     func setTheme(_ newTheme: UIColor) {
         logThemeChanging(newTheme)
         
+        self.navigationController?.navigationBar.barStyle = (isLight(newTheme) ? UIBarStyle.default : UIBarStyle.black)
+        
         UserDefaults.saveTheme(theme: newTheme)
         
         UINavigationBar.appearance().barTintColor = newTheme
@@ -44,6 +46,5 @@ extension ConversationsListViewController {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : textColor]
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : textColor]
     }
-    
     
 }
