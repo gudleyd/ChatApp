@@ -86,16 +86,16 @@ class ConversationsListViewController : UIViewController {
     @IBAction func themePickerOpenButtonClicked(_ sender: Any) {
         //Switcher1
         // Swift
-//        let sThemePickerViewController = SThemePickerViewController(closure: {
-//            [weak self] theme in
-//            self?.setTheme(theme)
-//        });
-//        self.present(sThemePickerViewController, animated: true, completion: nil);
+        let sThemePickerViewController = SThemePickerViewController(closure: {
+            [weak self] theme in
+            self?.setTheme(theme)
+        });
+        self.present(sThemePickerViewController, animated: true, completion: nil);
         
         // Obj-C
-        let themePickerViewController = ThemePickerViewController()
-        themePickerViewController.setDelegate(self)
-        self.present(themePickerViewController, animated: true, completion: nil);
+//        let themePickerViewController = ThemePickerViewController()
+//        themePickerViewController.setDelegate(self)
+//        self.present(themePickerViewController, animated: true, completion: nil);
     }
 }
 
