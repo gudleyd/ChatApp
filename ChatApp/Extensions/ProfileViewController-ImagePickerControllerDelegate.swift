@@ -12,6 +12,8 @@ extension ProfileViewController : UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let chosenImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         self.profileImageView.image = chosenImage
+        self.profile.avatar = chosenImage
+        isNeedToEnableButtons()
         dismiss(animated: true, completion: { self.profileImageView.openBlind() })
     }
     

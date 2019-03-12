@@ -9,26 +9,22 @@
 import UIKit
 import AVFoundation
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var profileImageView: CustomImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var statusTextField: UITextView!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet var gcdSaveButton: UIButton!
+    @IBOutlet var operationSaveButton: UIButton!
     @IBOutlet weak var chooseProfileImageButton: UIButton!
+    @IBOutlet var dismissEditing: UIButton!
+    
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
+    var profile: Profile = Profile()
+    var lastSavedProfile: Profile = Profile()
     
     let defaultProfileImage = UIImage(named: "placeholder-user")
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        //print(editButton.frame)
-        /*
-            Unexpectedly found nil while unwrapping an Optional value
-            Это произошло, потому что переменные прикрепляются к своим вью, заданным на сторибордах,
-            в функции loadView, а не в init'е
-         */
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +32,27 @@ class ProfileViewController: UIViewController {
         
         Debugger.shared.Print("editButton frame in viewDidLoad: \(editButton.frame)")
         
+        self.view.addSubview(activityIndicator)
+        
+        profile.load()
+        if profile.name == "" {
+            profile.name = "Иван Лебедев"
+            profile.status = "люблю спортивное программирование🔥🔥 и все что с ним связано😜😜 алгоритмы сортировки 💕💕😎👌графы😍😍😲 рекурсия 😈😈 📈😆🤘дискретная математика💗💗"
+            profile.avatar = UIImage(named: "placeholder-user")!
+        }
+        lastSavedProfile = profile.copy()
+        
         setupUI()
+        disableEditing()
         profileImageView.openBlind()
+        
+        editButton.addTarget(self, action: #selector(enableEditing), for: .touchUpInside)
+        gcdSaveButton.addTarget(self, action: #selector(gcdProfileSave), for: .touchUpInside)
+        operationSaveButton.addTarget(self, action: #selector(operationProfileSave), for: .touchUpInside)
+        dismissEditing.addTarget(self, action: #selector(disableEditing), for: .touchUpInside)
+        statusTextField.delegate = self as UITextViewDelegate
+        
+        nameTextField.addTarget(self, action: #selector(nameChanged(_:)), for: .allEditingEvents)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +65,12 @@ class ProfileViewController: UIViewController {
          */
     }
     
+    func styleButton(_ button: UIButton!) {
+        button.layer.cornerRadius = 8
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
+    }
+    
     
     func setupUI() {
         chooseProfileImageButton.setImage(UIImage(named: "photo-camera-icon"), for: .normal)
@@ -57,17 +78,31 @@ class ProfileViewController: UIViewController {
         chooseProfileImageButton.layer.borderWidth = 1
         chooseProfileImageButton.layer.borderColor = UIColor.white.cgColor
         
-        editButton.layer.cornerRadius = 8
-        editButton.layer.borderColor = UIColor.black.cgColor
-        editButton.layer.borderWidth = 1
+        styleButton(editButton)
+        styleButton(gcdSaveButton)
+        styleButton(operationSaveButton)
         
         profileImageView.layer.cornerRadius = 16
         profileImageView.layer.masksToBounds = true
-        profileImageView.image = defaultProfileImage
+        profileImageView.image = profile.avatar
         
-        nameLabel.text = "Иван Лебедев"
+        nameTextField.layer.masksToBounds = true
         
-        statusLabel.text = "люблю спортивное программирование🔥🔥 и все что с ним связано😜😜 алгоритмы сортировки 💕💕😎👌графы😍😍😲 рекурсия 😈😈 📈😆🤘дискретная математика💗💗"
+        
+        statusTextField.layer.masksToBounds = true
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.isHidden = true
+        
+        setProfile()
+    }
+    
+    func setProfile() {
+        nameTextField.text = profile.name
+        statusTextField.text = profile.status
+        profileImageView.image = profile.avatar
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
@@ -88,8 +123,123 @@ class ProfileViewController: UIViewController {
     func deleteProfileImage() {
         profileImageView.closeBlind(completionHandler: { [weak self] in
             self?.profileImageView.image = self?.defaultProfileImage
-            self?.profileImageView.openBlind()
+            DispatchQueue.main.async {
+                self?.profileImageView.openBlind()
+                self?.isNeedToEnableButtons()
+            }
         })
+    }
+    
+    @objc func gcdProfileSave() {
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+        self.profile.save(type: .gcd) { [weak self] (stat) in
+            if self != nil {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                    var alert = UIAlertController()
+                    if (stat) {
+                        alert = UIAlertController(title: "Сохранено", message: "", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in}))
+                    } else {
+                        alert = UIAlertController(title: "Не сохранено", message: "Некоторые данные не были сохранены", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: {_ in}))
+                        alert.addAction(UIAlertAction(title: "Повторить", style: .default, handler: {_ in self?.gcdProfileSave()}))
+                        self?.profile.load()
+                    }
+                    self?.lastSavedProfile = self?.profile.copy() ?? Profile()
+                    self?.disableEditing()
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    @objc func operationProfileSave() {
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+        self.profile.save(type: .operation) { [weak self] (stat) in
+            if self != nil {
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                    var alert = UIAlertController()
+                    if (stat) {
+                        alert = UIAlertController(title: "Сохранено", message: "", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in}))
+                    } else {
+                        alert = UIAlertController(title: "Не сохранено", message: "Некоторые данные не были сохранены", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: {_ in}))
+                        alert.addAction(UIAlertAction(title: "Повторить", style: .default, handler: {_ in self?.operationProfileSave()}))
+                        self?.profile.load()
+                    }
+                    self?.lastSavedProfile = self?.profile.copy() ?? Profile()
+                    self?.disableEditing()
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    @objc func enableEditing() {
+        nameTextField.isUserInteractionEnabled = true
+        statusTextField.isEditable = true
+        dismissEditing.isHidden = false
+        
+        editButton.isHidden = true
+        gcdSaveButton.isHidden = false
+        operationSaveButton.isHidden = false
+        gcdSaveButton.isEnabled = false
+        operationSaveButton.isEnabled = false
+        
+        statusTextField.layer.cornerRadius = 16
+        statusTextField.layer.borderWidth = 1
+        statusTextField.layer.borderColor = UIColor.black.cgColor
+        
+        nameTextField.layer.cornerRadius = 8
+        nameTextField.layer.borderWidth = 1
+        nameTextField.layer.borderColor = UIColor.black.cgColor
+        
+        chooseProfileImageButton.isHidden = false
+    }
+    
+    @objc func disableEditing() {
+        nameTextField.isUserInteractionEnabled = false
+        statusTextField.isEditable = false
+        dismissEditing.isHidden = true
+        
+        editButton.isHidden = false
+        gcdSaveButton.isHidden = true
+        operationSaveButton.isHidden = true
+        
+        statusTextField.layer.borderWidth = 0
+        nameTextField.layer.borderWidth = 0
+        
+        chooseProfileImageButton.isHidden = true
+        
+        profile = lastSavedProfile.copy()
+        setProfile()
+    }
+    
+    func isNeedToEnableButtons() {
+        if profile.name != lastSavedProfile.name || profile.status != lastSavedProfile.status || profile.avatar != lastSavedProfile.avatar {
+            gcdSaveButton.isEnabled = true
+            operationSaveButton.isEnabled = true
+        } else {
+            gcdSaveButton.isEnabled = false
+            operationSaveButton.isEnabled = false
+        }
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        self.profile.status = statusTextField.text
+        isNeedToEnableButtons()
+    }
+    
+    @objc func nameChanged(_ sender: UITextField) {
+        self.profile.name = nameTextField.text
+        isNeedToEnableButtons()
     }
     
     func openCamera()

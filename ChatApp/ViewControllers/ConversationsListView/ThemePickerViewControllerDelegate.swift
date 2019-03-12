@@ -7,13 +7,7 @@
 //
 
 import Foundation
-
-extension ConversationsListViewController: ThemePickerViewControllerDelegate {
-    
-    func themePickerViewController(_ controller: ThemePickerViewController, newTheme: UIColor) {
-        logThemeChanging(newTheme)
-    }
-}
+import UIKit
 
 extension ConversationsListViewController {
     

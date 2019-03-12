@@ -25,28 +25,14 @@
 }
 
 - (void)setTheme1:(UIColor *)color {
-    [color retain];
-    [self->theme1 release];
     self->theme1 = color;
 }
 
 - (void)setTheme2:(UIColor *)color {
-    [color retain];
-    [self->theme2 release];
     self->theme2 = color;
 }
 
 - (void)setTheme3:(UIColor *)color {
-    [color retain];
-    [self->theme3 release];
     self->theme3 = color;
 }
-
-- (void)dealloc {
-    [self->theme1 release];
-    [self->theme2 release];
-    [self->theme3 release];
-    [super dealloc];
-}
-
 @end

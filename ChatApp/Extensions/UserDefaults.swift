@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 extension UserDefaults {
     
     static func saveTheme(theme: UIColor) {
-        let data = NSKeyedArchiver.archivedData(withRootObject: theme)
-        UserDefaults.standard.set(data, forKey: "themeColor")
+        DispatchQueue.init(label: "theme-queue").async {
+            let data = NSKeyedArchiver.archivedData(withRootObject: theme)
+            UserDefaults.standard.set(data, forKey: "themeColor")
+        }
     }
     
     static func loadTheme() -> UIColor {
-        guard let data = UserDefaults.standard.data(forKey: "themeColor") else { return UIColor.white }
-        guard let theme = NSKeyedUnarchiver.unarchiveObject(with: data) as? UIColor else { return UIColor.white }
-        return theme
+        var theme: UIColor?
+        DispatchQueue.init(label: "theme-queue").async {
+            let data = UserDefaults.standard.data(forKey: "themeColor")
+            theme =  NSKeyedUnarchiver.unarchiveObject(with: data ?? Data()) as? UIColor ?? UIColor.white
+        }
+        return theme ?? UIColor.white
     }
 }
