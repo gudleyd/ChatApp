@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     func deleteProfileImage() {
         profileImageView.closeBlind(completionHandler: { [weak self] in
             self?.profileImageView.image = self?.defaultProfileImage
-            self?.profile.avatar = self?.profileImageView.image
+            self?.profile.avatar = self?.profileImageView.image ?? UIImage(named: "placeholder-user")!
             DispatchQueue.main.async {
                 self?.profileImageView.openBlind()
                 self?.isNeedToEnableButtons()
