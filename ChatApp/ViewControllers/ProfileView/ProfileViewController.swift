@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var operationSaveButton: UIButton!
     @IBOutlet weak var chooseProfileImageButton: UIButton!
     @IBOutlet var dismissEditing: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
     
     var activityIndicator = UIActivityIndicatorView(style: .gray)
     var profile: Profile = Profile()
@@ -123,6 +124,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     func deleteProfileImage() {
         profileImageView.closeBlind(completionHandler: { [weak self] in
             self?.profileImageView.image = self?.defaultProfileImage
+            self?.profile = self?.profileImageView.image
             DispatchQueue.main.async {
                 self?.profileImageView.openBlind()
                 self?.isNeedToEnableButtons()
@@ -202,6 +204,8 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         nameTextField.layer.borderColor = UIColor.black.cgColor
         
         chooseProfileImageButton.isHidden = false
+        
+        closeButton.isHidden = true
     }
     
     @objc func disableEditing() {
@@ -220,6 +224,8 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         
         profile = lastSavedProfile.copy()
         setProfile()
+        
+        closeButton.isHidden = false
     }
     
     func isNeedToEnableButtons() {

@@ -123,6 +123,7 @@
                     </view>
                     <connections>
                         <outlet property="chooseProfileImageButton" destination="9bI-Mf-rxy" id="LPG-VT-LGB"/>
+                        <outlet property="closeButton" destination="gYy-hn-aie" id="EK5-O7-iJU"/>
                         <outlet property="dismissEditing" destination="hlz-Eg-CpW" id="zi9-MX-MvL"/>
                         <outlet property="editButton" destination="Dc0-4N-Kbu" id="egf-oh-48a"/>
                         <outlet property="gcdSaveButton" destination="hdg-qA-Wzq" id="IKE-Yz-pHz"/>
