@@ -57,6 +57,8 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         statusTextField.delegate = self as UITextViewDelegate
         
         nameTextField.addTarget(self, action: #selector(nameChanged(_:)), for: .allEditingEvents)
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -336,6 +338,11 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         self.view.frame.origin.y = 0
+    }
+    
+    @objc func hideKeyboard() {
+        nameTextField.endEditing(true)
+        statusTextField.endEditing(true)
     }
     
 }
