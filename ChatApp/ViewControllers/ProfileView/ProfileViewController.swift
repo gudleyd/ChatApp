@@ -33,6 +33,9 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         
         Debugger.shared.Print("editButton frame in viewDidLoad: \(editButton.frame)")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         self.view.addSubview(activityIndicator)
         
         profile.load()
@@ -323,6 +326,16 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         imageAlert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
         
         self.present(imageAlert, animated: true, completion: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
     }
     
 }
