@@ -11,16 +11,17 @@ import UIKit
 
 extension UserDefaults {
     
-    static func saveTheme(theme: UIColor) {
+    static func saveTheme(theme: UIColor, completionHandler: @escaping () -> () = {}) {
         DispatchQueue.init(label: "theme-queue").async {
             let data = NSKeyedArchiver.archivedData(withRootObject: theme)
             UserDefaults.standard.set(data, forKey: "themeColor")
+            completionHandler()
         }
     }
     
     static func loadTheme() -> UIColor {
         var theme: UIColor?
-        DispatchQueue.init(label: "theme-queue").async {
+        DispatchQueue.init(label: "theme-queue").sync {
             let data = UserDefaults.standard.data(forKey: "themeColor")
             theme =  NSKeyedUnarchiver.unarchiveObject(with: data ?? Data()) as? UIColor ?? UIColor.white
         }
