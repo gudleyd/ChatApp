@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MessageInputAccessoryView" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRv-nD-Q8l">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WVz-YP-Oy1">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQX-9b-Qgb">
+                                    <rect key="frame" x="8" y="8" width="284" height="28"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="bQX-9b-Qgb" firstAttribute="leading" secondItem="WVz-YP-Oy1" secondAttribute="leading" constant="8" id="7tT-XW-6tg"/>
+                                <constraint firstAttribute="bottom" secondItem="bQX-9b-Qgb" secondAttribute="bottom" constant="8" id="bCr-uP-xVH"/>
+                                <constraint firstItem="bQX-9b-Qgb" firstAttribute="top" secondItem="WVz-YP-Oy1" secondAttribute="top" constant="8" id="c22-f3-KFx"/>
+                                <constraint firstAttribute="trailing" secondItem="bQX-9b-Qgb" secondAttribute="trailing" constant="8" id="hGa-kr-z2J"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3P-wT-jmg">
+                            <rect key="frame" x="300" y="0.0" width="75" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UU8-kH-g7m">
+                                    <rect key="frame" x="0.0" y="8" width="71" height="28"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal" title="SEND"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="UU8-kH-g7m" secondAttribute="trailing" constant="4" id="9bx-cw-hhE"/>
+                                <constraint firstAttribute="bottom" secondItem="UU8-kH-g7m" secondAttribute="bottom" constant="8" id="AvY-JR-JyW"/>
+                                <constraint firstItem="UU8-kH-g7m" firstAttribute="leading" secondItem="t3P-wT-jmg" secondAttribute="leading" id="KLj-OQ-RKa"/>
+                                <constraint firstItem="UU8-kH-g7m" firstAttribute="top" secondItem="t3P-wT-jmg" secondAttribute="top" constant="8" id="mgJ-JA-1W7"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="WVz-YP-Oy1" firstAttribute="width" secondItem="cRv-nD-Q8l" secondAttribute="width" multiplier="0.8" id="eNe-Db-sdM"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="cRv-nD-Q8l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="O9y-uf-6Ze"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cRv-nD-Q8l" secondAttribute="trailing" id="YMa-an-guG"/>
+                <constraint firstAttribute="bottom" secondItem="cRv-nD-Q8l" secondAttribute="bottom" constant="16" id="eVB-0s-pHL"/>
+                <constraint firstItem="cRv-nD-Q8l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gQO-S6-QCN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bottomConstraint" destination="bCr-uP-xVH" id="nhM-Vx-FJd"/>
+                <outlet property="sendButton" destination="UU8-kH-g7m" id="hF9-UZ-qLW"/>
+                <outlet property="textField" destination="bQX-9b-Qgb" id="DO9-cP-u25"/>
+            </connections>
+            <point key="canvasLocation" x="-327.19999999999999" y="116.04197901049476"/>
+        </view>
+    </objects>
+</document>

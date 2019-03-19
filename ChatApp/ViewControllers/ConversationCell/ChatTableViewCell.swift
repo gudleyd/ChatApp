@@ -88,6 +88,8 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
         
         if let text = lastMessage {
             lastMessageLabel.text = text
+            lastMessageLabel.font = UIFont(name: "System Font", size: 12)
+            lastMessageLabel.textColor = UIColor.black
         } else {
             lastMessageLabel.text = "Нет Сообщений"
             lastMessageLabel.font = UIFont(name: "Open Sans", size: 20)

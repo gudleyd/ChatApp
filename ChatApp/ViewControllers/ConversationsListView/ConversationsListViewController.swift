@@ -6,30 +6,8 @@
 //  Copyright © 2019 Иван Лебедев. All rights reserved.
 //
 
-var exampleChats : [ChatModel] = [
-    ChatModel("Олег Емельянов", "Ок", Date(timeIntervalSince1970: 1551087725 - 60000), true, false, true),
-    ChatModel("Арнольд Баранов", "Да", Date(timeIntervalSince1970: 1551087725 - 90000), true, true, true),
-    ChatModel("Дмитрий Мамонтов", "Лол", Date(timeIntervalSince1970: 1551087725 - 100000), true, false, false),
-    ChatModel("Жанна Рожкова", "Ты опять меня игноришь?", Date(), true, true, false),
-    ChatModel("Лариса Ефимова", ":)", Date(timeIntervalSince1970: 454325653), true, false, false),
-    ChatModel("Илон Маск", "Как тебе такое?", Date(), true, true, true),
-    ChatModel("Донат Коновалов", "Давай не будем о политике", Date(timeIntervalSince1970: 1551087725 - 3456000), true, false, false),
-    ChatModel("Адольф Сысоев", "Антихайп!", Date(), true, false, true),
-    ChatModel("Оскар Богданов", "How do you do?", Date(), true, false, false),
-    ChatModel("Харитон Носов", "Чего ты ждешь?", Date(), true, true, true),
-    ChatModel("Варвара Кириллова", "я так не думаю", Date(), false, true, false),
-    ChatModel("Евдоким Гриднев", "Ок, я жду", Date(), false, false, false),
-    ChatModel("Удаленный Аккаунт", "Привет, ну ты зажигаешь! Смотри видео с собой по ссылке. $удаленная ссылка$", Date(), false, true, false),
-    ChatModel("Арсений Герасимов", "Согласен", Date(), false, false, true),
-    ChatModel("Моисей Самсонов", "Напиши, когда соберешься отдавать", Date(timeIntervalSince1970: 0), false, false, true),
-    ChatModel("Макс Данилов", "Ок, я жду", Date(timeIntervalSince1970: 1551080000), false, true, false),
-    ChatModel("Виктор Кудряшов", "Верните мне мой 2007!", Date(timeIntervalSince1970: 3456345634), false, false, false),
-    ChatModel("Борислав Быков", "пока", Date(timeIntervalSince1970: 423589023), false, false, false),
-    ChatModel("Кирилл Шувалов", "Привет проверяющим", Date(timeIntervalSince1970: 32425234), false, false, true),
-    ChatModel("Христофор Павлов", "Тест", Date(timeIntervalSince1970: 34563583245), false, false, false)
-]
-
 import UIKit
+import MultipeerConnectivity
 
 
 class ConversationsListViewController : UIViewController {
@@ -38,7 +16,7 @@ class ConversationsListViewController : UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    var allChats: [ChatModel] = exampleChats
+    var allChats: [ChatModel] = []
     var onlineChats: [ChatModel] = []
     var offlineChats: [ChatModel] = []
     
@@ -66,11 +44,54 @@ class ConversationsListViewController : UIViewController {
         searchController.searchBar.delegate!.searchBar?(searchController.searchBar, textDidChange: "")
         
         splitChats()
+        
+        let mainGroup = DispatchGroup()
+        mainGroup.enter()
+        GCDDocumentDataManager.loadString(filePath: "user-name.str", completionHandler: { (str) in
+            MessageManager.shared = MessageManager(userName: str)
+            MessageManager.shared.listView = self
+            mainGroup.leave()
+        })
+        mainGroup.wait()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateTable()
     }
     
     func splitChats() {
         onlineChats = allChats.filter({$0.online ?? false})
+        onlineChats.sort(by: {(cm1, cm2) in
+            if cm1.lastMessageDate != nil && cm2.lastMessageDate != nil && cm1.lastMessageDate! != cm2.lastMessageDate! {
+                return cm1.lastMessageDate! > cm2.lastMessageDate!
+            } else {
+                return cm1.name! < cm2.name!
+            }
+        })
         offlineChats = allChats.filter({!($0.online ?? false)})
+        offlineChats.sort(by: {(cm1, cm2) in
+            if cm1.lastMessageDate == nil && cm2.lastMessageDate != nil {
+                return false;
+            } else if cm1.lastMessageDate != nil && cm2.lastMessageDate == nil {
+                return true
+            } else if cm1.lastMessageDate != nil && cm2.lastMessageDate != nil {
+                if cm1.lastMessageDate! != cm2.lastMessageDate! {
+                    return cm1.lastMessageDate! > cm2.lastMessageDate!
+                } else {
+                    if cm1.name != nil && cm2.name != nil {
+                        return cm1.name! < cm2.name!
+                    } else {
+                        return true
+                    }
+                }
+            } else {
+                if cm1.name != nil && cm2.name != nil {
+                    return cm1.name! < cm2.name!
+                } else {
+                    return true
+                }
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,6 +99,8 @@ class ConversationsListViewController : UIViewController {
             let chatModel = sender as? ChatModel
             let obj = segue.destination as! ChatViewController
             obj.title = (chatModel?.name ?? "Unknown")
+            obj.chatModel = chatModel
+            MessageManager.shared.chatView = obj
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -89,6 +112,13 @@ class ConversationsListViewController : UIViewController {
             self?.setTheme(theme)
         });
         self.present(sThemePickerViewController, animated: true, completion: nil);
+    }
+    
+    func updateTable() {
+        DispatchQueue.main.async {
+            self.splitChats()
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -157,8 +187,121 @@ extension ConversationsListViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        splitChats()
-        tableView.reloadData()
+        self.splitChats()
+        self.tableView.reloadData()
+    }
+}
+
+
+class MessageManager : CommunicatorDelegate {
+    
+    static var shared: MessageManager!
+    
+    init(userName: String) {
+        CommunicationManager.shared = CommunicationManager(userName: userName)
+        CommunicationManager.shared.delegate = self
     }
     
+    weak var listView: ConversationsListViewController?
+    weak var chatView: ChatViewController?
+    
+    func didFoundUser(userID: String, userName: String?) {
+        DispatchQueue.main.async {
+            if let list = self.listView {
+                if let chat = list.allChats.first(where: {$0.userID == userID}) {
+                    chat.online = true
+                    chat.name = userName
+                } else {
+                    list.allChats.append(ChatModel(userName, userID: userID, nil, nil, true, false, false))
+                }
+                list.updateTable()
+            }
+        }
+    }
+    
+    func didLostUser(userID: String) {
+        DispatchQueue.main.async {
+            if let list = self.listView {
+                if let chat = list.allChats.first(where: {$0.userID == userID}) {
+                    chat.online = false
+                    if let chatV = self.chatView {
+                        if chatV.chatModel?.userID == userID {
+                            chatV.disableSendings()
+                        }
+                    }
+                } else {
+                    print("We lost user never found")
+                }
+                list.updateTable()
+            }
+        }
+    }
+    
+    func stateChanged(displayName: String, state: MCSessionState) {
+        DispatchQueue.main.async {
+            if let list = self.listView {
+                if let chat = list.allChats.first(where: {$0.userID == displayName}) {
+                    if state != .connected {
+                        chat.online = false
+                        if let chatV = self.chatView {
+                            if chatV.chatModel?.userID == chat.userID {
+                                chatV.disableSendings()
+                            }
+                        }
+                    } else {
+                        chat.online = true
+                        if let chatV = self.chatView {
+                            if chatV.chatModel?.userID == chat.userID {
+                                chatV.enableSendings()
+                            }
+                        }
+                    }
+                }
+                list.updateTable()
+            }
+        }
+    }
+    
+    func failedToStartBrowsingForUsers(error: Error) {
+        // Nothing here
+    }
+    
+    func failedToStartAdvertising(error: Error) {
+        // Nothing here
+    }
+    
+    func didReceiveMessage(text: String, fromUser: String, toUser: String) {
+        DispatchQueue.main.async {
+            if let list = self.listView {
+                if let chat = list.allChats.first(where: {$0.userID == fromUser}) {
+                    chat.messages.append(Message(text: text, fromMe: false, date: Date()))
+                    chat.lastMessageDate = Date()
+                    chat.isLastMessageByMe = false
+                    chat.lastMessage = text
+                    chat.hasUnreadMessages = true
+                    if let chatV = self.chatView {
+                        if chatV.chatModel?.userID == fromUser {
+                            chat.hasUnreadMessages = false
+                            chatV.reloadMessages()
+                        }
+                    }
+                    list.updateTable()
+                } else if let chat = list.allChats.first(where: {$0.userID == toUser}) {
+                    chat.messages.append(Message(text: text, fromMe: true, date: Date()))
+                    chat.lastMessageDate = Date()
+                    chat.isLastMessageByMe = true
+                    chat.lastMessage = text
+                    if let chatV = self.chatView {
+                        if chatV.chatModel?.userID == toUser {
+                            chatV.reloadMessages()
+                        }
+                    }
+                    list.updateTable()
+                } else {
+                    print("Received from unknown user")
+                }
+            }
+        }
+    }
 }
+

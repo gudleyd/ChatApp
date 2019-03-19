@@ -6,12 +6,14 @@
 //  Copyright © 2019 Иван Лебедев. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class ChatViewController: UIViewController {
     
-    var messages: [(String, Bool)] = []
+    var chatModel: ChatModel? = nil
     @IBOutlet weak var tableView: UITableView!
+    let accessoryView = UINib(nibName: "MessageInputAccessory", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! MessageInputAccessoryView
     
     
     override func viewDidLoad() {
@@ -23,29 +25,56 @@ class ChatViewController: UIViewController {
         tableView.register(nib1, forCellReuseIdentifier: "OutcomingMessageBubbleTableViewCell")
         let nib2 = UINib(nibName: "IncomingMessageBubbleTableViewCell", bundle: nil)
         tableView.register(nib2, forCellReuseIdentifier: "IncomingMessageBubbleTableViewCell")
-        createMessages()
+        
+        chatModel?.hasUnreadMessages = false
+        self.accessoryView.delegate = self
+        
+        if CommunicationManager.shared.communicator.session.connectedPeers.filter({$0.displayName == chatModel?.userID}).count != 0 {
+            self.accessoryView.sendButton.isEnabled = true
+        } else {
+            CommunicationManager.shared.communicator.connectPeer(userID: chatModel!.userID)
+            self.accessoryView.sendButton.isEnabled = false
+        }
+        
+        setupObservers()
     }
     
-    func createMessages() {
-        let text: String = """
-Повседневная практика показывает, что курс на социально-ориентированный национальный проект напрямую зависит от соответствующих условий активизации. Соображения высшего порядка, а также начало повседневной работы по формированию позиции создаёт предпосылки качественно новых шагов для системы обучения кадров, соответствующей насущным потребностям. Практический опыт показывает, что постоянное информационно-техническое обеспечение нашей деятельности представляет собой интересный эксперимент проверки существующих финансовых и административных условий. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров представляет собой интересный эксперимент проверки дальнейших направлений развития проекта. Задача организации, в особенности же выбранный нами инновационный путь требует от нас анализа существующих финансовых и административных условий. Не следует, однако, забывать о том, что социально-экономическое развитие создаёт предпосылки качественно новых шагов для ключевых компонентов планируемого обновления. Таким образом, рамки и место обучения кадров требует от нас системного анализа дальнейших направлений развития проекта. Задача организации, в особенности же новая модель организационной деятельности позволяет оценить значение экономической целесообразности принимаемых решений. Дорогие друзья, повышение уровня гражданского сознания обеспечивает широкому кругу специалистов участие в формировании экономической целесообразности принимаемых решений. Не следует, однако, забывать о том, что курс на социально-ориентированный национальный проект обеспечивает широкому кругу специалистов участие в формировании направлений прогрессивного развития.
-Значимость этих проблем настолько очевидна, что новая модель организационной деятельности требует от нас анализа всесторонне сбалансированных нововведений. Повседневная практика показывает, что дальнейшее развитие различных форм деятельности играет важную роль в формировании дальнейших направлений развитая системы массового участия? Значимость этих проблем настолько очевидна, что рамки и место обучения кадров обеспечивает широкому кругу специалистов участие в формировании направлений прогрессивного развития! Таким образом, рамки и место обучения кадров представляет собой интересный эксперимент проверки дальнейших направлений развитая системы массового участия! Соображения высшего порядка, а также рамки и место обучения кадров влечет за собой процесс внедрения и модернизации направлений прогрессивного развития. Практический опыт показывает, что повышение уровня гражданского сознания способствует подготовке и реализации экономической целесообразности принимаемых решений. Дорогие друзья, реализация намеченного плана развития играет важную роль в формировании существующих финансовых и административных условий? Повседневная практика показывает, что дальнейшее развитие различных форм деятельности обеспечивает широкому кругу специалистов участие в формировании позиций, занимаемых участниками в отношении поставленных задач. Повседневная практика показывает, что начало повседневной работы по формированию позиции способствует повышению актуальности ключевых компонентов планируемого обновления. Таким образом, рамки и место обучения кадров представляет собой интересный эксперимент проверки системы обучения кадров, соответствующей насущным потребностям. Таким образом, постоянное информационно-техническое обеспечение нашей деятельности требует от нас анализа ключевых компонентов планируемого обновления!
-Дорогие друзья, новая модель организационной деятельности позволяет выполнить важнейшие задания по разработке соответствующих условий активизации? С другой стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения и модернизации форм воздействия. Разнообразный и богатый опыт выбранный нами инновационный путь требует определения и уточнения соответствующих условий активизации? Соображения высшего порядка, а также дальнейшее развитие различных форм деятельности обеспечивает широкому кругу специалистов участие в формировании экономической целесообразности принимаемых решений! Дорогие друзья, социально-экономическое развитие требует определения и уточнения системы масштабного изменения ряда параметров. Таким образом, новая модель организационной деятельности требует от нас анализа позиций, занимаемых участниками в отношении поставленных задач. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров в значительной степени обуславливает создание системы обучения кадров, соответствующей насущным потребностям. Таким образом, курс на социально-ориентированный национальный проект играет важную роль в формировании дальнейших направлений развитая системы массового участия! Не следует, однако, забывать о том, что курс на социально-ориентированный национальный проект позволяет оценить значение новых предложений. Соображения высшего порядка, а также постоянный количественный рост и сфера нашей активности требует от нас системного анализа системы обучения кадров, соответствующей насущным потребностям. Разнообразный и богатый опыт дальнейшее развитие различных форм деятельности обеспечивает актуальность новых предложений!
-Задача...
-"""
-        var cur: String = ""
-        var i: Int = 0
-        for chr in text {
-            cur.append(chr)
-            if (i + 1) % 100 == 0 {
-                messages.append((cur, i % 3 == 0))
-                cur = ""
-            }
-            i += 1
+    func enableSendings() {
+        DispatchQueue.main.async {
+            self.accessoryView.sendButton.isEnabled = true
         }
     }
     
-
+    func disableSendings() {
+        DispatchQueue.main.async {
+            self.accessoryView.sendButton.isEnabled = false
+        }
+    }
+    
+    func reloadMessages() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.toBottom()
+        }
+    }
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return accessoryView
+        }
+    }
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        CommunicationManager.shared.communicator.disconnectPeers()
+        MessageManager.shared.chatView = nil
+        removeObservers()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -61,17 +90,17 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return chatModel!.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: MessageBubbleTableViewCell
-        if messages[indexPath.row].1 {
+        if chatModel!.messages[indexPath.row].fromMe {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutcomingMessageBubbleTableViewCell", for: indexPath) as! MessageBubbleTableViewCell
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessageBubbleTableViewCell", for: indexPath) as! MessageBubbleTableViewCell
         }
-        cell.configure(messages[indexPath.row].0, messages[indexPath.row].1)
+        cell.configure(chatModel!.messages[indexPath.row].text, chatModel!.messages[indexPath.row].fromMe)
         return cell
     }
     
@@ -80,4 +109,49 @@ extension ChatViewController: UITableViewDataSource {
 
 extension ChatViewController: UITableViewDelegate {
     
+}
+
+extension ChatViewController {
+    
+    func toBottom(){
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.chatModel!.messages.count - 1, section: 0)
+            if indexPath.row >= 0 {
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            }
+        }
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    @objc func onShowKeyboard(notification: NSNotification) {
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            UIView.animate(withDuration: 0.6, animations: { [weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight - 10, right: 0)
+                    self?.tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -keyboardHeight + 10, right: 0)
+                }
+                })
+            { [weak self] (_) in
+                self?.toBottom()
+            }
+            
+        }
+    }
+}
+
+extension ChatViewController: MessageInput {
+    func sendMessage(text: String!) {
+        if (text.count != 0) {
+            CommunicationManager.shared.communicator.sendMessage(text: text, to: chatModel!.userID) { (suc, err) in
+                Debugger.shared.Print("Message not Sended")
+            }
+        }
+    }
 }
