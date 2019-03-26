@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2300F90B224A4BD4005C55CC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2300F90A224A4BD4005C55CC /* CoreDataStack.swift */; };
+		2300F90D224A502F005C55CC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2300F90C224A502F005C55CC /* StorageManager.swift */; };
 		2307FFE9220CB2B1008D351D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFE8220CB2B1008D351D /* AppDelegate.swift */; };
 		2307FFEB220CB2B1008D351D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307FFEA220CB2B1008D351D /* ProfileViewController.swift */; };
 		2307FFEE220CB2B1008D351D /* ProfileView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2307FFEC220CB2B1008D351D /* ProfileView.storyboard */; };
@@ -48,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2300F90A224A4BD4005C55CC /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		2300F90C224A502F005C55CC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		2307FFE5220CB2B1008D351D /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2307FFE8220CB2B1008D351D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2307FFEA220CB2B1008D351D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2300F909224A4BC4005C55CC /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2300F90A224A4BD4005C55CC /* CoreDataStack.swift */,
+				2300F90C224A502F005C55CC /* StorageManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		2307FFDC220CB2B1008D351D = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +134,7 @@
 		2307FFE7220CB2B1008D351D /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				2300F909224A4BC4005C55CC /* CoreData */,
 				2363FCA222378A22004EBEE5 /* Bridges */,
 				2363FC9A223588BE004EBEE5 /* DataWorkers */,
 				2339D4C3221FFC8B002CC37C /* Protocols */,
@@ -383,7 +397,9 @@
 				23E619C62223D67D00E3D395 /* ChatViewController.swift in Sources */,
 				2339D4C2221FFC88002CC37C /* ChatModel.swift in Sources */,
 				23BD700E223FCC8600530CE5 /* DataViewerProtocol.swift in Sources */,
+				2300F90D224A502F005C55CC /* StorageManager.swift in Sources */,
 				23BD7005223FBF7F00530CE5 /* MultipeerConnectivity.swift in Sources */,
+				2300F90B224A4BD4005C55CC /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

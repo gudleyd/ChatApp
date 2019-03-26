@@ -45,14 +45,9 @@ class ConversationsListViewController : UIViewController {
         
         splitChats()
         
-        let mainGroup = DispatchGroup()
-        mainGroup.enter()
-        GCDDocumentDataManager.loadString(filePath: "user-name.str", completionHandler: { (str) in
-            MessageManager.shared = MessageManager(userName: str)
-            MessageManager.shared.listView = self
-            mainGroup.leave()
-        })
-        mainGroup.wait()
+        let appUser = StorageManager.shared.getUserProfile()
+        MessageManager.shared = MessageManager(userName: appUser.name ?? "")
+        MessageManager.shared.listView = self
     }
     
     override func viewDidAppear(_ animated: Bool) {

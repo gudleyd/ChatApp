@@ -85,7 +85,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UWD-6L-vyt">
                                         <rect key="frame" x="228.5" y="0.0" width="114.5" height="44"/>
-                                        <state key="normal" title="Operation"/>
+                                        <state key="normal" title="Сохранить"/>
                                     </button>
                                 </subviews>
                                 <constraints>
