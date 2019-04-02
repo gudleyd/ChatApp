@@ -219,7 +219,6 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        self.tableView.reloadData()
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -234,7 +233,6 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        self.tableView.reloadData()
         switch type {
         case .insert:
             tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)

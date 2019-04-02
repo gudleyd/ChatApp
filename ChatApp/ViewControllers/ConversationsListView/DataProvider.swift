@@ -30,7 +30,19 @@ class DataProvider {
     }
 
     init() {
-        
+        StorageManager.shared.saveContext.performAndWait {
+            do {
+                let results = try (StorageManager.shared.saveContext.fetch(CDConversation.fetchRequest()) as? [CDConversation]) ?? []
+                
+                for conv in results {
+                    conv.isOnline = false
+                    conv.user?.isOnline = false
+                }
+                StorageManager.shared.performSave(in: StorageManager.shared.saveContext)
+            } catch let err {
+                print(err)
+            }
+        }
     }
 }
 
@@ -40,17 +52,15 @@ extension DataProvider: CommunicatorDelegate {
         StorageManager.shared.updateConv(conv: conv, isOnline: true, completionHandler: { self.listVC?.updateTable() })
         StorageManager.shared.updateUser(user: conv.user, isOnline: true, completionHandler: {
             self.listVC?.updateTable()
-            self.chatVC?.enableSendings()
         })
     }
 
     func didLostUser(userID: String) {
         StorageManager.shared.updateConv(conv: StorageManager.shared.getOrInsertConversation(userID: userID),
-                                         isOnline: true,
+                                         isOnline: false,
                                          completionHandler: {self.listVC?.updateTable() })
         StorageManager.shared.updateUser(user: StorageManager.shared.getOrInsertUser(userID: userID), isOnline: false, completionHandler: {
             self.listVC?.updateTable()
-            self.chatVC?.disableSendings()
         })
     }
 
