@@ -16,9 +16,9 @@ func getBaseURL() throws -> URL {
     return url
 }
 
-class GCDDocumentDataManager : SaverDataManagerProtocol {
-    
-    public static func saveData(data: Data!, filePath: String!, completionHandler: @escaping (Bool) -> () = {_ in}) {
+class GCDDocumentDataManager: SaverDataManagerProtocol {
+
+    public static func saveData(data: Data!, filePath: String!, completionHandler: @escaping (Bool) -> Void = {_ in}) {
         DispatchQueue.init(label: "docs://" + filePath, qos: .userInitiated).async {
             do {
                 try data.write(to: getBaseURL().appendingPathComponent(filePath), options: .atomic)
@@ -28,42 +28,42 @@ class GCDDocumentDataManager : SaverDataManagerProtocol {
             }
         }
     }
-    
-    public static func saveString(str: String!, filePath: String!, encoding: String.Encoding, completionHandler: @escaping (Bool) -> () = {_ in}, async: Bool = false) {
+
+    public static func saveString(str: String!, filePath: String!, encoding: String.Encoding, completionHandler: @escaping (Bool) -> Void = {_ in}, async: Bool = false) {
         saveData(data: str.data(using: encoding), filePath: filePath, completionHandler: completionHandler)
     }
-    
-    public static func saveImageAsPNG(img: UIImage!, filePath: String!, completionHandler: @escaping (Bool) -> () = {_ in}, async: Bool = false) {
+
+    public static func saveImageAsPNG(img: UIImage!, filePath: String!, completionHandler: @escaping (Bool) -> Void = {_ in}, async: Bool = false) {
         saveData(data: img.pngData(), filePath: filePath, completionHandler: completionHandler)
     }
-    
-    public static func loadData(filePath: String!, completionHandler: @escaping (Data) -> () = {_ in}) {
+
+    public static func loadData(filePath: String!, completionHandler: @escaping (Data) -> Void = {_ in}) {
         DispatchQueue.init(label: "docs://" + filePath, qos: .userInitiated).async {
             let data = try? Data.init(contentsOf: getBaseURL().appendingPathComponent(filePath))
             completionHandler(data ?? Data())
         }
     }
-    
-    public static func loadString(filePath: String!, completionHandler: @escaping (String) -> () = {_ in}) {
+
+    public static func loadString(filePath: String!, completionHandler: @escaping (String) -> Void = {_ in}) {
         DispatchQueue.init(label: "docs://" + filePath, qos: .userInitiated).async {
             let string = try? String.init(contentsOf: getBaseURL().appendingPathComponent(filePath))
             completionHandler(string ?? "")
         }
     }
-    
-    public static func loadImage(filePath: String!, completionHandler: @escaping (UIImage) -> () = {_ in}) {
+
+    public static func loadImage(filePath: String!, completionHandler: @escaping (UIImage) -> Void = {_ in}) {
         loadData(filePath: filePath, completionHandler: { (data) in
             completionHandler(UIImage(data: data) ?? UIImage(named: "default-image")!)
         })
     }
-    
+
 }
 
-class OperationDataManager : SaverDataManagerProtocol {
-    
+class OperationDataManager: SaverDataManagerProtocol {
+
     static private let mainQueue = OperationQueue()
-    
-    static public func saveData(data: Data!, filePath: String!, completionHandler: @escaping (Bool) -> ()) {
+
+    static public func saveData(data: Data!, filePath: String!, completionHandler: @escaping (Bool) -> Void) {
         let operation = {
             do {
                 try data.write(to: getBaseURL().appendingPathComponent(filePath), options: .atomic)
@@ -74,12 +74,12 @@ class OperationDataManager : SaverDataManagerProtocol {
         }
         OperationDataManager.mainQueue.addOperation(operation)
     }
-    
-    static public func saveString(str: String!, filePath: String!, encoding: String.Encoding, completionHandler: @escaping (Bool) -> () = {_ in}, async: Bool = false) {
+
+    static public func saveString(str: String!, filePath: String!, encoding: String.Encoding, completionHandler: @escaping (Bool) -> Void = {_ in}, async: Bool = false) {
         saveData(data: str.data(using: encoding), filePath: filePath, completionHandler: completionHandler)
     }
-    
-    static public func saveImageAsPNG(img: UIImage!, filePath: String!, completionHandler: @escaping (Bool) -> () = {_ in}, async: Bool = false) {
+
+    static public func saveImageAsPNG(img: UIImage!, filePath: String!, completionHandler: @escaping (Bool) -> Void = {_ in}, async: Bool = false) {
         saveData(data: img.pngData(), filePath: filePath, completionHandler: completionHandler)
     }
 }

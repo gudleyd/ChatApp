@@ -9,24 +9,24 @@
 import UIKit
 import Foundation
 
-protocol MessageInput {
+protocol MessageInput: class {
     func sendMessage(text: String!)
 }
 
 class MessageInputAccessoryView: UIView {
-    
-    var delegate: MessageInput?
-    
+
+    weak var delegate: MessageInput?
+
     @IBOutlet public var sendButton: UIButton!
     @IBOutlet public var textField: UITextField!
     @IBOutlet public weak var bottomConstraint: NSLayoutConstraint!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
     }
-    
+
     @objc func sendButtonTapped() {
         delegate?.sendMessage(text: textField.text)
     }

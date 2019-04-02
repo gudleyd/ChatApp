@@ -9,5 +9,5 @@
 import Foundation
 
 protocol MessageCellConfigurationProtocol {
-    var messageText : String? {get set}
+    var messageText: String? {get set}
 }

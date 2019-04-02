@@ -8,6 +8,6 @@
 
 import UIKit
 
-extension ProfileViewController : UINavigationControllerDelegate {
-    
+extension ProfileViewController: UINavigationControllerDelegate {
+
 }

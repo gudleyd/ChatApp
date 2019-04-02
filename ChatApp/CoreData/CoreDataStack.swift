@@ -10,62 +10,61 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
-    
+
     var storeUrl: URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory,
                                                    in: .userDomainMask).first!
         return documentUrl.appendingPathComponent("MyStore.sqlite")
     }
-    
+
     let dataModelName = "ChatApp"
     let dataModelExtension = "momd"
-    
+
     lazy var managedObjectModel: NSManagedObjectModel = {
         let modelUrl = Bundle.main.url(forResource: self.dataModelName,
                                        withExtension: self.dataModelExtension)
         return NSManagedObjectModel(contentsOf: modelUrl!)!
     }()
-    
+
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        do
-        {
+        do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
                                                configurationName: nil,
                                                at: storeUrl,
                                                options: nil)
-            
+
         } catch {
             assert(false, "Error adding store: \(error)")
         }
         return coordinator
     }()
-    
+
     lazy var masterContext: NSManagedObjectContext = {
         var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         masterContext.mergePolicy = NSOverwriteMergePolicy
-        
+
         return masterContext
     }()
-    
+
     lazy var mainContext: NSManagedObjectContext = {
         var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.parent = self.masterContext
         mainContext.mergePolicy = NSOverwriteMergePolicy
-        
+
         return mainContext
     }()
-    
+
     lazy var saveContext: NSManagedObjectContext = {
         var saveContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         saveContext.parent = self.mainContext
         saveContext.mergePolicy = NSOverwriteMergePolicy
-        
+
         return saveContext
     }()
-    
-    typealias SaveCompletion = ()  -> Void
+
+    typealias SaveCompletion = () -> Void
     func performSave(with context: NSManagedObjectContext, completion: SaveCompletion? = nil ) {
         context.performAndWait {
             guard context.hasChanges else {
@@ -73,14 +72,14 @@ class CoreDataStack {
                 return
             }
         }
-        
+
         context.perform {
             do {
                 try context.save()
             } catch let err {
                 print("performSave ERROR:\n\(err)")
             }
-            
+
             if let parentContext = context.parent {
                 self.performSave(with: parentContext, completion: completion)
             } else {
@@ -88,35 +87,7 @@ class CoreDataStack {
                     completion?()
                 }
             }
-            
-        }
-    }
-}
 
-
-extension AppUser {
-    
-    static func insertAppUser(in context: NSManagedObjectContext, name: String) -> AppUser? {
-        guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { return nil }
-        appUser.name = name
-        return appUser
-    }
-    
-    static func getAppUser(in context: NSManagedObjectContext) -> AppUser? {
-        let request = NSFetchRequest<AppUser>(entityName: "AppUser")
-        request.returnsObjectsAsFaults = false
-        var userToReturn: AppUser? = nil
-        context.performAndWait {
-            do {
-                
-                let result = try context.fetch(request)
-                if let appUser = result.first {
-                    userToReturn = appUser
-                }
-            } catch let error {
-                print("getAppUser ERROR:\n\(error)")
-            }
         }
-        return userToReturn
     }
 }

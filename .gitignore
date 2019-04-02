@@ -4,3 +4,5 @@ xcuserdata/
 
 *.xccheckout
 *.xcscmblueprint
+
+Pods/

@@ -12,7 +12,7 @@ class Message {
     var text: String
     var fromMe: Bool
     var date: Date
-    
+
     init(text: String, fromMe: Bool, date: Date) {
         self.text = text
         self.fromMe = fromMe
@@ -20,7 +20,7 @@ class Message {
     }
 }
 
-class ChatModel : ChatCellConfigurationProtocol {
+class ChatModel: ChatCellConfigurationProtocol {
     var name: String?
     var userID: String
     var lastMessage: String?
@@ -28,8 +28,8 @@ class ChatModel : ChatCellConfigurationProtocol {
     var online: Bool?
     var hasUnreadMessages: Bool
     var isLastMessageByMe: Bool
-    var messages: [Message] = []
-    
+    var messages: [CDMessage] = []
+
     init(_ name: String?, userID: String, _ lastMessage: String?, _ lastMessageDate: Date?, _ online: Bool?, _ hasUnreadMessages: Bool, _ isLastMessageByMe: Bool) {
         self.name = name
         self.userID = userID

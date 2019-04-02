@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 class Profile {
-    
+
     var name: String?
     var namePath = "user-name.str"
     var status: String?
     var statusPath = "user-status.str"
     var avatar: UIImage = UIImage(named: "placeholder-user")!
     var avatarPath = "user-avatar.png"
-    
+
     init() {}
-    
+
     init(other: Profile) {
         self.name = other.name
         self.namePath = other.namePath
@@ -28,9 +28,9 @@ class Profile {
         self.avatar = other.avatar
         self.avatarPath = other.avatarPath
     }
-    
-    public func save(type: SavingType = .gcd, completionHandler: @escaping (Bool) -> () = {_ in}) {
-        if (type == .gcd) {
+
+    public func save(type: SavingType = .gcd, completionHandler: @escaping (Bool) -> Void = {_ in}) {
+        if type == .gcd {
             DispatchQueue.init(label: "profile-saver").async {
                 var oks: [Bool] = [false, false, false]
                 let mainGroup = DispatchGroup()
@@ -77,8 +77,8 @@ class Profile {
             })
         }
     }
-    
-    public func load(async: Bool = false, completionHandler: @escaping () -> () = {}) {
+
+    public func load(async: Bool = false, completionHandler: @escaping () -> Void = {}) {
         let mainGroup = DispatchGroup()
         mainGroup.enter()
         DispatchQueue.init(label: "profile-loader").async {
@@ -95,11 +95,11 @@ class Profile {
                 mainGroup.leave()
             })
             mainGroup.leave()
-            if (async) { completionHandler() }
+            if async { completionHandler() }
         }
-        if (!async) { mainGroup.wait() }
+        if !async { mainGroup.wait() }
     }
-    
+
     public func copy() -> Profile {
         return Profile(other: self)
     }

@@ -9,27 +9,27 @@
 import UIKit
 
 class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
-    
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var lastMessageDateLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var unreadMessagesLabel: UILabel!
-    
-    var name: String? = nil
-    var lastMessage: String? = nil
-    var lastMessageDate: Date? = nil
-    var online: Bool? = nil
+
+    var name: String?
+    var lastMessage: String?
+    var lastMessageDate: Date?
+    var online: Bool?
     var hasUnreadMessages: Bool = false
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+
         unreadMessagesLabel.layer.masksToBounds = true
         unreadMessagesLabel.layer.cornerRadius = unreadMessagesLabel.frame.height / 2
         unreadMessagesLabel.backgroundColor = UIColor.cyan
-        
+
         profileImageView.layer.cornerRadius = 16
         profileImageView.layer.masksToBounds = true
         profileImageView.image = UIImage(named: "placeholder-user")
@@ -40,32 +40,31 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
 
         // Configure the view for the selected state
     }
-    
-    func configure(from: ChatModel) {
-        name = from.name
-        lastMessage = from.lastMessage
-        if from.isLastMessageByMe {
-            lastMessage = "Вы: " + (lastMessage ?? "")
+
+    func configure(name: String?, lastMessage: String?, isLastMessageByMe: Bool, lastMessageDate: Date, online: Bool, hasUnreadMessages: Bool) {
+        self.name = name
+        self.lastMessage = lastMessage
+        if isLastMessageByMe {
+            self.lastMessage = "Вы: " + (lastMessage ?? "")
         }
-        lastMessageDate = from.lastMessageDate
-        online = from.online
-        hasUnreadMessages = from.hasUnreadMessages
-        
-        
+        self.lastMessageDate = lastMessageDate
+        self.online = online
+        self.hasUnreadMessages = hasUnreadMessages
+
         setup()
     }
-    
+
     func setup() {
-        
+
         nameLabel.text = (name ?? "")
-        
+
         if let date = lastMessageDate {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale.init(identifier: "ru")
             let calender = Calendar.current
             let currentDateComponents = calender.dateComponents(Set<Calendar.Component>(arrayLiteral: .day, .month, .year), from: Date())
             let lastMessageDateComponents = calender.dateComponents(Set<Calendar.Component>(arrayLiteral: .day, .month, .year), from: date)
-            
+
             dateFormatter.dateFormat = "dd MMM yyyy"
             if lastMessageDateComponents.year == currentDateComponents.year {
                 dateFormatter.dateFormat = "dd MMM"
@@ -78,14 +77,13 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
         } else {
             lastMessageDateLabel.text = ""
         }
-        
-        
+
         if online ?? false {
             self.backgroundColor = UIColor(red: 127/255, green: 255/255, blue: 0/255, alpha: 0.1)
         } else {
             self.backgroundColor = UIColor.white
         }
-        
+
         if let text = lastMessage {
             lastMessageLabel.text = text
             lastMessageLabel.font = UIFont(name: "System Font", size: 12)
@@ -96,7 +94,7 @@ class ChatTableViewCell: UITableViewCell, ChatCellConfigurationProtocol {
             lastMessageLabel.textColor = UIColor.red
             hasUnreadMessages = false
         }
-        
+
         unreadMessagesLabel.isHidden = !hasUnreadMessages
     }
 }

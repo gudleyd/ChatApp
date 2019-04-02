@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ChatCellConfigurationProtocol : class {
+protocol ChatCellConfigurationProtocol: class {
     var name: String? {get set}
     var lastMessage: String? {get set}
     var lastMessageDate: Date? {get set}

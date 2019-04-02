@@ -10,13 +10,13 @@ import UIKit
 
 class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProtocol {
 
-    var messageText: String? = nil
+    var messageText: String?
     var isOutcome: Bool = false
     var setups: Int = 0
-    
+
     @IBOutlet private var messageTextLabel: UILabel!
     @IBOutlet private var background: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,13 +27,13 @@ class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProto
 
         // Configure the view for the selected state
     }
-    
+
     func configure(_ with: String, _ isOutcome: Bool = false) {
         self.messageText = with
         self.isOutcome = isOutcome
         setup()
     }
-    
+
     func setup() {
         let GOEConstraint = self.contentView.constraints.filter { $0.identifier == "left" || $0.identifier == "right" }
         GOEConstraint[0].constant = self.frame.width * 1/4
@@ -45,8 +45,8 @@ class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProto
             self.background.backgroundColor = UIColor(red: 102/255, green: 155/255, blue: 200/255, alpha: 1)
         }
     }
-    
+
     @IBAction func openThemePicker(_ sender: Any) {
-        
+
     }
 }

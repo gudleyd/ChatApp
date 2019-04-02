@@ -8,31 +8,29 @@
 
 import Foundation
 
-
 class Debugger {
     static let shared = Debugger()
     let DEBUG: Bool = true
-    
-    func Print(_ items: Any) {
-        if (DEBUG) {
+
+    func dbprint(_ items: Any) {
+        if DEBUG {
             print(items)
         }
     }
 }
 
 class StateLogger {
-    
+
     var currentState: String?
     var instanceName: String?
-    
+
     init(initialState: String, instanceName: String) {
         self.currentState = initialState
         self.instanceName = instanceName
     }
-    
-    func logState(stateName: String = #function, methodName: String = #function) -> Void {
-        Debugger.shared.Print("\(instanceName ?? "#NONAME") moved from \(currentState ?? "#NONAME") to \(stateName): \(methodName)")
+
+    func logState(stateName: String = #function, methodName: String = #function) {
+        Debugger.shared.dbprint("\(instanceName ?? "#NONAME") moved from \(currentState ?? "#NONAME") to \(stateName): \(methodName)")
         currentState = stateName
     }
 }
-
