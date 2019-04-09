@@ -86,7 +86,7 @@ class ConversationsListViewController: UIViewController {
 extension ConversationsListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.fetchedResultsController.sections![section].name
+        return self.fetchedResultsController.sections?[section].name ?? "Нет имени"
     }
 }
 
@@ -147,14 +147,23 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+            if let nip = newIndexPath {
+                tableView.insertRows(at: [nip], with: .automatic)
+            }
         case .move:
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
-            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+            if let nip = newIndexPath,
+                let ip = indexPath {
+                tableView.deleteRows(at: [ip], with: .automatic)
+                tableView.insertRows(at: [nip], with: .automatic)
+            }
         case .update:
-            tableView.reloadRows(at: [indexPath!], with: .automatic)
+            if let ip = indexPath {
+                tableView.reloadRows(at: [ip], with: .automatic)
+            }
         case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            if let nip = newIndexPath {
+                tableView.deleteRows(at: [nip], with: .automatic)
+            }
         }
     }
 

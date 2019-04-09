@@ -38,7 +38,7 @@ class StorageManager {
             var appUser: AppUser?
             appUser = AppUser.getAppUser(in: self.stack.saveContext)
             if appUser == nil {
-                appUser = AppUser.insertAppUser(in: self.stack.saveContext, name: "Ivan Lebedev")!
+                appUser = AppUser.insertAppUser(in: self.stack.saveContext, name: "Ivan Lebedev")
             }
             self.stack.saveContext.perform {
                 appUser?.name = profile.name
@@ -52,12 +52,14 @@ class StorageManager {
     public func updateUser(user: User?, isOnline: Bool?, completionHandler: (() -> Void)?) {
         DispatchQueue.global(qos: .background).async {
             if let user = user {
-                user.managedObjectContext!.performAndWait {
+                user.managedObjectContext?.performAndWait {
                     if let online = isOnline {
                         user.isOnline = online
                     }
                     DispatchQueue.main.async {
-                        self.stack.performSave(with: user.managedObjectContext!)
+                        if let context = user.managedObjectContext {
+                            self.stack.performSave(with: context)
+                        }
                         completionHandler?()
                     }
                 }
@@ -68,12 +70,14 @@ class StorageManager {
     public func updateConv(conv: CDConversation?, isOnline: Bool?, completionHandler: (() -> Void)?) {
         DispatchQueue.global(qos: .background).async {
             if let conv = conv {
-                conv.managedObjectContext!.performAndWait {
+                conv.managedObjectContext?.performAndWait {
                     if let online = isOnline {
                         conv.isOnline = online
                     }
                     DispatchQueue.main.async {
-                        self.stack.performSave(with: conv.managedObjectContext!)
+                        if let context = conv.managedObjectContext {
+                            self.stack.performSave(with: context)
+                        }
                         completionHandler?()
                     }
                 }
@@ -85,13 +89,13 @@ class StorageManager {
         var appUser: AppUser?
         appUser = AppUser.getAppUser(in: stack.mainContext)
         if appUser == nil {
-            appUser = AppUser.insertAppUser(in: stack.mainContext, name: "Ivan Lebedev")!
+            appUser = AppUser.insertAppUser(in: stack.mainContext, name: "Ivan Lebedev")
         }
         self.stack.performSave(with: stack.mainContext, completion: nil)
         let profile: Profile = Profile()
         profile.name = appUser?.name
         profile.status = appUser?.status
-        profile.avatar = UIImage(data: appUser?.avatar ?? Data()) ?? UIImage(named: "placeholder-user")!
+        profile.avatar = UIImage(data: appUser?.avatar ?? Data()) ?? UIImage(named: "placeholder-user") ?? UIImage()
         return profile
     }
 
@@ -102,7 +106,10 @@ class StorageManager {
             user = User.insertUser(in: stack.mainContext, userID: userID, userName: userName)
             self.stack.performSave(with: stack.mainContext, completion: nil)
         }
-        return user!
+        guard let userToReturn = user else {
+            fatalError()
+        }
+        return userToReturn
     }
 
     public func getOrInsertConversation(userID: String, userName: String = "") -> CDConversation {
@@ -115,10 +122,12 @@ class StorageManager {
                 user = User.insertUser(in: stack.mainContext, userID: userID, userName: userName)
                 self.stack.performSave(with: stack.mainContext, completion: nil)
             }
-            conv = CDConversation.insertConversation(in: stack.mainContext, user: user!)
+            guard let mUser = user else { fatalError() }
+            conv = CDConversation.insertConversation(in: stack.mainContext, user: mUser)
             self.stack.performSave(with: stack.mainContext, completion: nil)
         }
-        return conv!
+        guard let convToReturn = conv else { fatalError() }
+        return convToReturn
     }
 
     public func didReceiveMessage(text: String, fromUser: String, toUser: String, completionHandler: (() -> Void)?) {

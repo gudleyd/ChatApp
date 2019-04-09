@@ -52,7 +52,7 @@ class ChatViewController: UIViewController {
         if CommunicationManager.shared.communicator.session.connectedPeers.filter({$0.displayName == chatModel?.userID}).count != 0 {
             self.accessoryView?.sendButton.isEnabled = true
         } else {
-            CommunicationManager.shared.communicator.connectPeer(userID: chatModel!.userID)
+            CommunicationManager.shared.communicator.connectPeer(userID: chatModel?.userID ?? "")
             self.accessoryView?.sendButton.isEnabled = false
         }
 
@@ -172,7 +172,7 @@ extension ChatViewController {
 extension ChatViewController: MessageInput {
     func sendMessage(text: String!) {
         if text.count != 0 {
-            CommunicationManager.shared.communicator.sendMessage(text: text, to: chatModel!.userID) { (_, _) in
+            CommunicationManager.shared.communicator.sendMessage(text: text, to: chatModel?.userID ?? "") { (_, _) in
                 Debugger.shared.dbprint("Message not Sended")
             }
             DispatchQueue.main.async {
@@ -195,14 +195,23 @@ extension ChatViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+            if let nip = newIndexPath {
+                tableView.insertRows(at: [nip], with: .automatic)
+            }
         case .move:
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
-            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+            if let nip = newIndexPath,
+                let ip = indexPath {
+                tableView.deleteRows(at: [ip], with: .automatic)
+                tableView.insertRows(at: [nip], with: .automatic)
+            }
         case .update:
-            tableView.reloadRows(at: [indexPath!], with: .automatic)
+            if let ip = indexPath {
+                tableView.reloadRows(at: [ip], with: .automatic)
+            }
         case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            if let ip = indexPath {
+                tableView.deleteRows(at: [ip], with: .automatic)
+            }
         }
         self.toBottom()
     }

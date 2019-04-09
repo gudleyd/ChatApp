@@ -12,8 +12,10 @@ import CoreData
 class CoreDataStack {
 
     var storeUrl: URL {
-        let documentUrl = FileManager.default.urls(for: .documentDirectory,
-                                                   in: .userDomainMask).first!
+        guard let documentUrl = FileManager.default.urls(for: .documentDirectory,
+                                                         in: .userDomainMask).first else {
+                                                            fatalError("Bad document URL")
+        }
         return documentUrl.appendingPathComponent("MyStore.sqlite")
     }
 
@@ -21,9 +23,14 @@ class CoreDataStack {
     let dataModelExtension = "momd"
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelUrl = Bundle.main.url(forResource: self.dataModelName,
-                                       withExtension: self.dataModelExtension)
-        return NSManagedObjectModel(contentsOf: modelUrl!)!
+        guard let modelUrl = Bundle.main.url(forResource: self.dataModelName,
+                                             withExtension: self.dataModelExtension) else {
+                                                fatalError("Bad model url")
+        }
+        guard let managedModel = NSManagedObjectModel(contentsOf: modelUrl) else {
+            fatalError("Can't create managedObjectModel")
+        }
+        return managedModel
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {

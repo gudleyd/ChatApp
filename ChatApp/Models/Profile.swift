@@ -15,7 +15,7 @@ class Profile {
     var namePath = "user-name.str"
     var status: String?
     var statusPath = "user-status.str"
-    var avatar: UIImage = UIImage(named: "placeholder-user")!
+    var avatar: UIImage = UIImage(named: "placeholder-user") ?? UIImage()
     var avatarPath = "user-avatar.png"
 
     init() {}

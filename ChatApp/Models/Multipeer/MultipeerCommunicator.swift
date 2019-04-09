@@ -108,7 +108,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
 
         self.peers.append(peerID)
-        self.delegate?.didFoundUser(userID: peerID.displayName, userName: info!["userName"])
+        self.delegate?.didFoundUser(userID: peerID.displayName, userName: info?["userName"] ?? "")
     }
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
