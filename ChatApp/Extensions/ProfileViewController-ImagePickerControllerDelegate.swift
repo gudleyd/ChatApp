@@ -14,10 +14,12 @@ extension ProfileViewController: UIImagePickerControllerDelegate {
         self.profileImageView.image = chosenImage
         self.profile.avatar = chosenImage
         isNeedToEnableButtons()
-        dismiss(animated: true, completion: { self.profileImageView.openBlind() })
+        dismiss(animated: true, completion: { [weak self] in self?.profileImageView.openBlind()
+        })
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: { self.profileImageView.openBlind() })
+        dismiss(animated: true, completion: { [weak self] in self?.profileImageView.openBlind()
+        })
     }
 }

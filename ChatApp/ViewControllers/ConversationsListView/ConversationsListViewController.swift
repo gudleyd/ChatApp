@@ -14,12 +14,6 @@ class ConversationsListViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
 
-    let searchController = UISearchController(searchResultsController: nil)
-
-    var allChats: [ChatModel] = []
-    var onlineChats: [ChatModel] = []
-    var offlineChats: [ChatModel] = []
-
     var dataProvider = DataProvider()
 
     var appUser: Profile?
@@ -39,13 +33,6 @@ class ConversationsListViewController: UIViewController {
 
         let nib = UINib(nibName: "ChatTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "ChatTableViewCell")
-
-        //self.navigationItem.searchController = searchController
-//        self.navigationItem.hidesSearchBarWhenScrolling = false
-//        searchController.dimsBackgroundDuringPresentation = false
-//        searchController.searchBar.delegate = self
-//
-//        searchController.searchBar.delegate!.searchBar?(searchController.searchBar, textDidChange: "")
 
         self.appUser = StorageManager.shared.getUserProfile()
         CommunicationManager.shared = CommunicationManager(userName: appUser?.name ?? "No name")
@@ -134,77 +121,17 @@ extension ConversationsListViewController: UITableViewDataSource {
         return cell
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        //let dialogName = searchedConversations[indexPath.row].name!
-//        let vc = ConversationViewController(conversationListDataProvider: self.viewModel, conversationId: self.fetchedResultsController.object(at: indexPath).conversationId!)
-//        vc.dialogTitle = (self.fetchedResultsController.object(at: indexPath).participants?.allObjects.first as! User).name
-//        //vc.connectedUserID = self.viewModel.getUserIdBy(username: dialogName)
-//        vc.connectedUserID = (self.fetchedResultsController.object(at: indexPath).participants?.allObjects.first! as! User).userId!
-//        vc.conversation = self.fetchedResultsController.object(at: indexPath)
-//        self.performSegue(withIdentifier: "ToChatView", sender: chatModel)
-//        self.tableView.deselectRow(at: indexPath, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == Sections.online.rawValue && onlineChats.count > 0 {
-//            return onlineChats.count
-//        } else {
-//            return offlineChats.count
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as? ChatTableViewCell else {
-//            print("No cell?")
-//            return UITableViewCell()
-//        }
-//        if indexPath.section == Sections.online.rawValue && onlineChats.count > 0 {
-//            cell.configure(from: onlineChats[indexPath.row])
-//        } else {
-//            cell.configure(from: offlineChats[indexPath.row])
-//        }
-//        return cell
-//    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = self.fetchedResultsController.object(at: indexPath)
-        let chatModel = ChatModel(data.user?.userName,
-                                  userID: (data.user?.userID)!,
-                                  data.lastMessage,
-                                  data.lastMessageDate,
-                                  data.user?.isOnline,
-                                  data.hasUnreadMessages,
-                                  data.isLastMessageByMe)
-        StorageManager.shared.updateConversationHasUnreadMessages(userID: data.user?.userID ?? "No id", hasUnreadMessages: false)
-        if searchController.isActive {
-            searchController.dismiss(animated: true, completion: { [weak self] in
-                self?.performSegue(withIdentifier: "ToChatView", sender: chatModel)
-                self?.tableView.deselectRow(at: indexPath, animated: true)
-            })
-        } else {
-            self.performSegue(withIdentifier: "ToChatView", sender: chatModel)
-            self.tableView.deselectRow(at: indexPath, animated: true)
-        }
+        let chatModel = ChatModel(name: data.user?.userName,
+                                  userID: data.user?.userID ?? "No id",
+                                  hasUnreadMessages: false)
+        StorageManager.shared.updateConversationHasUnreadMessages(userID: data.user?.userID ?? "No id",
+                                                                  hasUnreadMessages: false)
+        self.performSegue(withIdentifier: "ToChatView", sender: chatModel)
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 
-}
-
-extension ConversationsListViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            //splitChats()
-        } else {
-            onlineChats = allChats.filter({$0.online ?? false && $0.name?.lowercased().contains(searchText.lowercased()) ?? false})
-            offlineChats = allChats.filter({!($0.online ?? false) && $0.name?.lowercased().contains(searchText.lowercased()) ?? false})
-        }
-        tableView.reloadData()
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //self.splitChats()
-        self.tableView.reloadData()
-    }
 }
 
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
@@ -214,7 +141,6 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
         tableView.reloadSectionIndexTitles()
     }
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //self.tableView.reloadSectionIndexTitles()
         tableView.endUpdates()
     }
 

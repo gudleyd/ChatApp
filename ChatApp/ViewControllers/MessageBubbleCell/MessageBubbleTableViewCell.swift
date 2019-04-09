@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProtocol {
+class MessageBubbleTableViewCell: UITableViewCell {
 
     var messageText: String?
     var isOutcome: Bool = false
@@ -44,9 +44,5 @@ class MessageBubbleTableViewCell: UITableViewCell, MessageCellConfigurationProto
         } else {
             self.background.backgroundColor = UIColor(red: 102/255, green: 155/255, blue: 200/255, alpha: 1)
         }
-    }
-
-    @IBAction func openThemePicker(_ sender: Any) {
-
     }
 }

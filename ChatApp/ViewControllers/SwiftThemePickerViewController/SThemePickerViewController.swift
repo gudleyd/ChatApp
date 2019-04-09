@@ -42,9 +42,10 @@ class SThemePickerViewController: UIViewController {
 
         self.view.backgroundColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
 
-        model.setTheme1(UIColor.white)
-        model.setTheme2(UIColor.black)
-        model.setTheme3(UIColor.init(red: 205/255, green: 140/255, blue: 205/255, alpha: 1))
+        model.setTheme(number: 1, to: UIColor.white)
+        model.setTheme(number: 2, to: UIColor.black)
+        model.setTheme(number: 3,
+                       to: UIColor.init(red: 205/255, green: 140/255, blue: 205/255, alpha: 1))
 
         theme1Button.setTitle("Светлая тема", for: .normal)
         theme2Button.setTitle("Темная тема", for: .normal)
@@ -78,11 +79,11 @@ class SThemePickerViewController: UIViewController {
 
     @objc func themePicked(_ sender: UIButton) {
         if sender == theme1Button {
-            self.view.backgroundColor = model.theme1()
+            self.view.backgroundColor = model.getTheme(number: 1)
         } else if sender == theme2Button {
-            self.view.backgroundColor = model.theme2()
+            self.view.backgroundColor = model.getTheme(number: 2)
         } else if sender == theme3Button {
-            self.view.backgroundColor = model.theme3()
+            self.view.backgroundColor = model.getTheme(number: 3)
         }
         closure(self.view.backgroundColor ?? UIColor.white)
     }

@@ -11,12 +11,11 @@ import AVFoundation
 
 class ProfileViewController: UIViewController, UITextViewDelegate {
 
-    @IBOutlet weak var profileImageView: CustomImageView!
+    @IBOutlet weak var profileImageView: BlindImageView!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var statusTextField: UITextView!
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet var gcdSaveButton: UIButton!
-    @IBOutlet var operationSaveButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var chooseProfileImageButton: UIButton!
     @IBOutlet var dismissEditing: UIButton!
     @IBOutlet weak var closeButton: UIButton!
@@ -52,10 +51,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         profileImageView.openBlind()
 
         editButton.addTarget(self, action: #selector(enableEditing), for: .touchUpInside)
-        gcdSaveButton.addTarget(self, action: #selector(gcdProfileSave), for: .touchUpInside)
-        gcdSaveButton.isHidden = true
-        //operationSaveButton.titleLabel!.text = "Сохранить"
-        operationSaveButton.addTarget(self, action: #selector(operationProfileSave), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(profileSave), for: .touchUpInside)
         dismissEditing.addTarget(self, action: #selector(disableEditing), for: .touchUpInside)
         statusTextField.delegate = self as UITextViewDelegate
 
@@ -87,8 +83,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         chooseProfileImageButton.layer.borderColor = UIColor.white.cgColor
 
         styleButton(editButton)
-        styleButton(gcdSaveButton)
-        styleButton(operationSaveButton)
+        styleButton(saveButton)
 
         profileImageView.layer.cornerRadius = 16
         profileImageView.layer.masksToBounds = true
@@ -138,33 +133,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         })
     }
 
-    @objc func gcdProfileSave() {
-        self.activityIndicator.startAnimating()
-        self.activityIndicator.isHidden = false
-        self.profile.save(type: .gcd) { [weak self] (stat) in
-            if self != nil {
-                DispatchQueue.main.async {
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    var alert = UIAlertController()
-                    if stat {
-                        alert = UIAlertController(title: "Сохранено", message: "", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in}))
-                    } else {
-                        alert = UIAlertController(title: "Не сохранено", message: "Некоторые данные не были сохранены", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: {_ in}))
-                        alert.addAction(UIAlertAction(title: "Повторить", style: .default, handler: {_ in self?.gcdProfileSave()}))
-                        self?.profile.load()
-                    }
-                    self?.lastSavedProfile = self?.profile.copy() ?? Profile()
-                    self?.disableEditing()
-                    self?.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-
-    @objc func operationProfileSave() {
+    @objc func profileSave() {
         StorageManager.shared.saveUserProfile(profile: profile, completion: {
             let alert = UIAlertController(title: "Сохранено", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in}))
@@ -180,10 +149,9 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         dismissEditing.isHidden = false
 
         editButton.isHidden = true
-        //gcdSaveButton.isHidden = false
-        operationSaveButton.isHidden = false
-        //gcdSaveButton.isEnabled = false
-        operationSaveButton.isEnabled = false
+        saveButton.isHidden = false
+        
+        saveButton.isEnabled = false
 
         statusTextField.layer.cornerRadius = 16
         statusTextField.layer.borderWidth = 1
@@ -204,9 +172,8 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         dismissEditing.isHidden = true
 
         editButton.isHidden = false
-        //gcdSaveButton.isHidden = true
-        operationSaveButton.isHidden = true
-
+        saveButton.isHidden = true
+        
         statusTextField.layer.borderWidth = 0
         nameTextField.layer.borderWidth = 0
 
@@ -220,11 +187,9 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
 
     func isNeedToEnableButtons() {
         if profile.name != lastSavedProfile.name || profile.status != lastSavedProfile.status || profile.avatar != lastSavedProfile.avatar {
-            gcdSaveButton.isEnabled = true
-            operationSaveButton.isEnabled = true
+            saveButton.isEnabled = true
         } else {
-            gcdSaveButton.isEnabled = false
-            operationSaveButton.isEnabled = false
+            saveButton.isEnabled = false
         }
     }
 

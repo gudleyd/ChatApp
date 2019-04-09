@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iAY-CZ-hYW" customClass="CustomImageView" customModule="ChatApp" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iAY-CZ-hYW" customClass="BlindImageView" customModule="ChatApp" customModuleProvider="target">
                                 <rect key="frame" x="16" y="72" width="343" height="343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iAY-CZ-hYW" secondAttribute="height" multiplier="1:1" id="zRb-ky-oiv"/>
@@ -76,15 +76,11 @@
                                 <rect key="frame" x="16" y="615" width="343" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc0-4N-Kbu">
-                                        <rect key="frame" x="0.0" y="0.0" width="114.5" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="44"/>
                                         <state key="normal" title="Редактировать"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdg-qA-Wzq">
-                                        <rect key="frame" x="114.5" y="0.0" width="114" height="44"/>
-                                        <state key="normal" title="GCD"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UWD-6L-vyt">
-                                        <rect key="frame" x="228.5" y="0.0" width="114.5" height="44"/>
+                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="44"/>
                                         <state key="normal" title="Сохранить"/>
                                     </button>
                                 </subviews>
@@ -126,10 +122,9 @@
                         <outlet property="closeButton" destination="gYy-hn-aie" id="EK5-O7-iJU"/>
                         <outlet property="dismissEditing" destination="hlz-Eg-CpW" id="zi9-MX-MvL"/>
                         <outlet property="editButton" destination="Dc0-4N-Kbu" id="egf-oh-48a"/>
-                        <outlet property="gcdSaveButton" destination="hdg-qA-Wzq" id="IKE-Yz-pHz"/>
                         <outlet property="nameTextField" destination="toN-5Q-SAG" id="7UK-c9-BlS"/>
-                        <outlet property="operationSaveButton" destination="UWD-6L-vyt" id="Tlz-Hl-MVw"/>
                         <outlet property="profileImageView" destination="iAY-CZ-hYW" id="6j4-On-C1r"/>
+                        <outlet property="saveButton" destination="UWD-6L-vyt" id="c3g-iF-t9I"/>
                         <outlet property="statusTextField" destination="hX8-JO-0pe" id="5g8-Xz-RT1"/>
                     </connections>
                 </viewController>

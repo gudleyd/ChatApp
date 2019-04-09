@@ -49,33 +49,27 @@ class DataProvider {
 extension DataProvider: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
         let conv = StorageManager.shared.getOrInsertConversation(userID: userID, userName: userName ?? userID)
-        StorageManager.shared.updateConv(conv: conv, isOnline: true, completionHandler: { self.listVC?.updateTable() })
-        StorageManager.shared.updateUser(user: conv.user, isOnline: true, completionHandler: {
-            self.listVC?.updateTable()
-        })
+        StorageManager.shared.updateConv(conv: conv, isOnline: true, completionHandler: nil)
+        StorageManager.shared.updateUser(user: conv.user, isOnline: true, completionHandler: nil)
     }
 
     func didLostUser(userID: String) {
         StorageManager.shared.updateConv(conv: StorageManager.shared.getOrInsertConversation(userID: userID),
                                          isOnline: false,
-                                         completionHandler: {self.listVC?.updateTable() })
-        StorageManager.shared.updateUser(user: StorageManager.shared.getOrInsertUser(userID: userID), isOnline: false, completionHandler: {
-            self.listVC?.updateTable()
-        })
+                                         completionHandler: nil)
+        StorageManager.shared.updateUser(user: StorageManager.shared.getOrInsertUser(userID: userID), isOnline: false, completionHandler: nil)
     }
 
     func failedToStartBrowsingForUsers(error: Error) {
-        // Nothing here
         print("Failed to start Browsing")
     }
 
     func failedToStartAdvertising(error: Error) {
-        // Nothing here
         print("Failed to start Advertising")
     }
 
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        StorageManager.shared.didReceiveMessage(text: text, fromUser: fromUser, toUser: toUser, completionHandler: { self.chatVC?.reloadMessages() })
+        StorageManager.shared.didReceiveMessage(text: text, fromUser: fromUser, toUser: toUser, completionHandler: nil)
     }
 
     func stateChanged(displayName: String, state: MCSessionState) {

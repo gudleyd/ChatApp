@@ -6,6 +6,7 @@
 //  Copyright © 2019 Иван Лебедев. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import CoreData
 
@@ -29,12 +30,7 @@ class StorageManager {
     func performSave(in context: NSManagedObjectContext) {
         DispatchQueue.global(qos: .background).async {
             self.stack.performSave(with: context)
-
         }
-    }
-
-    public func takeMessagesFromConversation(with userId: String) -> [Message] {
-        return []
     }
 
     public func saveUserProfile(profile: Profile, completion: (() -> Void)?) {
@@ -122,13 +118,6 @@ class StorageManager {
             conv = CDConversation.insertConversation(in: stack.mainContext, user: user!)
             self.stack.performSave(with: stack.mainContext, completion: nil)
         }
-//        let chat: ChatModel = ChatModel(conv?.user?.userName,
-//                                        userID: conv?.user?.userID ?? "No id",
-//                                        conv?.lastMessage, conv?.lastMessageDate,
-//                                        conv?.user?.isOnline,
-//                                        conv?.hasUnreadMessages ?? false,
-//                                        conv?.isLastMessageByMe ?? false)
-//        chat.messages = (conv?.messages?.array as? [CDMessage]) ?? []
         return conv!
     }
 

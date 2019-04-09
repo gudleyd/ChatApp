@@ -8,8 +8,7 @@
 
 import UIKit
 
-/* Пока не придумал красивое название */
-class CustomImageView: UIImageView {
+class BlindImageView: UIImageView {
 
     var blindView = UIVisualEffectView()
 
@@ -43,13 +42,5 @@ class CustomImageView: UIImageView {
             completionHandler()
         })
     }
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+    
 }
