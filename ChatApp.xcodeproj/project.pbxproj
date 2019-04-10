@@ -160,7 +160,7 @@
 		2307FFE7220CB2B1008D351D /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				2367F655225E000F001D1115 /* MainAssebly */,
+				2367F655225E000F001D1115 /* MainAssembly */,
 				2367F62B225D2E25001D1115 /* Core */,
 				2367F62E225DD7B0001D1115 /* Presentation */,
 				2367F64B225DE78A001D1115 /* Services */,
@@ -365,12 +365,12 @@
 			path = Assembly;
 			sourceTree = "<group>";
 		};
-		2367F655225E000F001D1115 /* MainAssebly */ = {
+		2367F655225E000F001D1115 /* MainAssembly */ = {
 			isa = PBXGroup;
 			children = (
 				2367F656225E001D001D1115 /* MainAssembly.swift */,
 			);
-			path = MainAssebly;
+			path = MainAssembly;
 			sourceTree = "<group>";
 		};
 		236DFCB422241EB3006DE178 /* MessageBubbleCell */ = {
