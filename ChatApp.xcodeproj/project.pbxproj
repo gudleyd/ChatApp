@@ -19,6 +19,8 @@
 		23091AB0222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AAF222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift */; };
 		23091AB4222EBD470088BCFB /* SThemePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AB3222EBD470088BCFB /* SThemePickerViewController.swift */; };
 		23091AB6222EC7110088BCFB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AB5222EC7110088BCFB /* UserDefaults.swift */; };
+		23263E1A225E65AE00F63730 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23263E19225E65AE00F63730 /* StorageService.swift */; };
+		23263E1C225E694800F63730 /* CommunicatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23263E1B225E694800F63730 /* CommunicatorService.swift */; };
 		23275353225E14F1008637A5 /* ConversationsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23275352225E14F1008637A5 /* ConversationsListModel.swift */; };
 		23275356225E1649008637A5 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23275355225E1649008637A5 /* ConversationViewModel.swift */; };
 		23275358225E1B37008637A5 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23275357225E1B37008637A5 /* PhotoService.swift */; };
@@ -75,6 +77,8 @@
 		23091AAF222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		23091AB3222EBD470088BCFB /* SThemePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SThemePickerViewController.swift; sourceTree = "<group>"; };
 		23091AB5222EC7110088BCFB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		23263E19225E65AE00F63730 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		23263E1B225E694800F63730 /* CommunicatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorService.swift; sourceTree = "<group>"; };
 		23275352225E14F1008637A5 /* ConversationsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListModel.swift; sourceTree = "<group>"; };
 		23275355225E1649008637A5 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 		23275357225E1B37008637A5 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				2300F90A224A4BD4005C55CC /* CoreDataStack.swift */,
+				2300F90C224A502F005C55CC /* StorageManager.swift */,
 				232D613B225286C600004260 /* CoreDataExtensions.swift */,
 			);
 			path = CoreData;
@@ -335,8 +340,9 @@
 			isa = PBXGroup;
 			children = (
 				2367F64F225DEA84001D1115 /* Assembly */,
-				2300F90C224A502F005C55CC /* StorageManager.swift */,
 				23275357225E1B37008637A5 /* PhotoService.swift */,
+				23263E19225E65AE00F63730 /* StorageService.swift */,
+				23263E1B225E694800F63730 /* CommunicatorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 				2339D4CC221FFEAB002CC37C /* ChatTableViewCell.swift in Sources */,
 				23275356225E1649008637A5 /* ConversationViewModel.swift in Sources */,
 				2367F63C225DE3DF001D1115 /* ConversationList+TableViewDelegate.swift in Sources */,
+				23263E1C225E694800F63730 /* CommunicatorService.swift in Sources */,
 				2367F640225DE46E001D1115 /* ConversationsList+FRCDelegate.swift in Sources */,
 				2376668C2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift in Sources */,
 				23091AB4222EBD470088BCFB /* SThemePickerViewController.swift in Sources */,
@@ -602,6 +609,7 @@
 				2367F649225DE648001D1115 /* ConversationView+TableViewDataSource.swift in Sources */,
 				2367F643225DE5B8001D1115 /* ConversationView+TableViewDelegate.swift in Sources */,
 				23766689221995AB00CA3811 /* CustomImageView.swift in Sources */,
+				23263E1A225E65AE00F63730 /* StorageService.swift in Sources */,
 				23091AB6222EC7110088BCFB /* UserDefaults.swift in Sources */,
 				2376668E2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift in Sources */,
 				2363FCA122378857004EBEE5 /* Profile.swift in Sources */,

@@ -14,14 +14,14 @@ protocol IConversationsListModel {
 }
 
 class ConversationsListModel: IConversationsListModel {
-    private var storageManager: IStorageManager!
+    private var storageService: IStorageService!
     
-    init(storageManager: IStorageManager) {
-        self.storageManager = storageManager
+    init(storageService: IStorageService) {
+        self.storageService = storageService
     }
     
     func updateConversationHasUnreadMessages(userID: String, hasUnreadMessages: Bool) {
-        self.storageManager.updateConversationHasUnreadMessages(userID: userID,
+        self.storageService.updateConversationHasUnreadMessages(userID: userID,
                                                                 hasUnreadMessages: hasUnreadMessages)
     }
 }

@@ -21,7 +21,7 @@ protocol IDataProvider: CommunicatorDelegate {
 
 class DataProvider: IDataProvider {
     
-    var storageManager: IStorageManager!
+    var storageManager: IStorageService!
 
     weak var listVC: ConversationsListViewController?
     weak var chatVC: ConversationViewController?
@@ -40,7 +40,7 @@ class DataProvider: IDataProvider {
         return frc
     }
 
-    init(storageManager: IStorageManager) {
+    init(storageManager: IStorageService) {
         self.storageManager = storageManager
         storageManager.saveContext.performAndWait {
             do {

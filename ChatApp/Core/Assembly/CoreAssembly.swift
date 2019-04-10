@@ -12,14 +12,18 @@ protocol ICoreAssembly {
     
     var communicator: CommunicationManager { get set }
     
+    var storageManager: StorageManager { get set }
+    
 }
 
 class CoreAssembly: ICoreAssembly {
     
     public var communicator: (CommunicationManager)
+    public var storageManager: (StorageManager)
     
     init() {
-        let profile = StorageManager().getUserProfile()
+        self.storageManager = StorageManager()
+        let profile = self.storageManager.getUserProfile()
         self.communicator = CommunicationManager(userName: profile.name ?? "No name")
     }
 }

@@ -21,27 +21,27 @@ protocol IConversationViewModel {
 
 class ConversationViewModel: IConversationViewModel {
     
-    var communicator: IBaseCommunicatorManager!
+    var communicator: ICommunicatorService!
     
-    var storageManager: IStorageManager!
+    var storageManager: IStorageService!
     
-    init(communicator: IBaseCommunicatorManager,
-         storageManager: IStorageManager) {
+    init(communicator: ICommunicatorService,
+         storageManager: IStorageService) {
         self.communicator = communicator
         self.storageManager = storageManager
     }
     
     func connectWithUser(userID: String) -> Bool {
-        if self.communicator.communicator.session.connectedPeers.filter({$0.displayName == userID}).count != 0 {
+        if self.communicator.communicator.communicator.session.connectedPeers.filter({$0.displayName == userID}).count != 0 {
             return true
         } else {
-            self.communicator.communicator.connectPeer(userID: userID)
+            self.communicator.communicator.communicator.connectPeer(userID: userID)
             return false
         }
     }
     
     func disconnectPeers() {
-        self.communicator.communicator.disconnectPeers()
+        self.communicator.communicator.communicator.disconnectPeers()
     }
     
     func updateConversationHasUnreadMessages(userID: String, hasUnreadMessages: Bool) {
@@ -50,6 +50,6 @@ class ConversationViewModel: IConversationViewModel {
     }
     
     func sendMessage(text: String, to userID: String, completionHandler: ((Bool, Error?) -> Void)?) {
-        self.communicator.communicator.sendMessage(text: text, to: userID, completionHandler: completionHandler)
+        self.communicator.communicator.communicator.sendMessage(text: text, to: userID, completionHandler: completionHandler)
     }
 }

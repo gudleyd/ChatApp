@@ -22,9 +22,8 @@ class MainAssembly: IMainAssembly {
     
     lazy var coreAssembly: ICoreAssembly = CoreAssembly()
     
-    lazy var serviceAssembly: IServiceAssembly = ServiceAssembly()
+    lazy var serviceAssembly: IServiceAssembly = ServiceAssembly(coreAssembly: self.coreAssembly)
     
     lazy var presentationAssembly: IPresentationAssembly =
-        PresentationAssembly(coreAssembly: self.coreAssembly,
-                             serviceAssembly: self.serviceAssembly)
+        PresentationAssembly(serviceAssembly: self.serviceAssembly)
 }

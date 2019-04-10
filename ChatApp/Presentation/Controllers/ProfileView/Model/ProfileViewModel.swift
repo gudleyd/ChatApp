@@ -20,17 +20,17 @@ protocol IProfileViewModel {
 
 class ProfileViewModel: IProfileViewModel {
     
-    var storageManager: IStorageManager!
+    var storageService: IStorageService!
     var photoService: IPhotoService!
     
-    init(storageManager: IStorageManager,
+    init(storageService: IStorageService,
          photoService: IPhotoService) {
-        self.storageManager = storageManager
+        self.storageService = storageService
         self.photoService = photoService
     }
     
     func saveUserProfile(profile: Profile, completion: (() -> Void)?) {
-        self.storageManager.saveUserProfile(profile: profile, completion: completion)
+        self.storageService.saveUserProfile(profile: profile, completion: completion)
     }
     
     func createUIImagePickerController(delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate),

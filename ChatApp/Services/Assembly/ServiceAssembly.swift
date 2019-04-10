@@ -9,14 +9,25 @@
 import Foundation
 
 protocol IServiceAssembly {
-    var storageManager: IStorageManager { get set }
+    
+    var storageService: IStorageService { get set }
     
     var photoService: IPhotoService { get set }
+    
+    var communicatorService: ICommunicatorService { get set }
 }
 
 class ServiceAssembly: IServiceAssembly {
     
-    var storageManager: IStorageManager = StorageManager()
+    var coreAssembly: ICoreAssembly!
+    var storageService: (IStorageService)
+    var communicatorService: (ICommunicatorService)
+    
+    init(coreAssembly: ICoreAssembly) {
+        self.coreAssembly = coreAssembly
+        self.storageService = StorageService(coreAssembly: self.coreAssembly)
+        self.communicatorService = CommunicatorService(coreAssembly: self.coreAssembly)
+    }
     
     var photoService: IPhotoService = PhotoService()
 }

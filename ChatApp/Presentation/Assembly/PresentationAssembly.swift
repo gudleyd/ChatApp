@@ -21,16 +21,13 @@ protocol IPresentationAssembly {
     func setCommunicatorDelegate(toSet: CommunicatorDelegate)
     
     var serviceAssembly: IServiceAssembly { get }
-    var coreAssembly: ICoreAssembly { get }
 }
 
 class PresentationAssembly: IPresentationAssembly {
     
-    var coreAssembly: ICoreAssembly
     var serviceAssembly: IServiceAssembly
     
-    init(coreAssembly: ICoreAssembly, serviceAssembly: IServiceAssembly) {
-        self.coreAssembly = coreAssembly
+    init(serviceAssembly: IServiceAssembly) {
         self.serviceAssembly = serviceAssembly
     }
     
@@ -45,7 +42,7 @@ class PresentationAssembly: IPresentationAssembly {
             fatalError("Can't instantiate ProfileViewController from storyboard")
         }
         vc.setDependencies(assembly: self,
-                           model: ProfileViewModel(storageManager: self.serviceAssembly.storageManager,
+                           model: ProfileViewModel(storageService: self.serviceAssembly.storageService,
                                                    photoService: self.serviceAssembly.photoService))
         return vc
     }
@@ -56,10 +53,10 @@ class PresentationAssembly: IPresentationAssembly {
             .instantiateViewController(withIdentifier: "ConversationsListViewController") as? ConversationsListViewController else {
             fatalError("Can't instantiate ConversationsListViewController from storyboard")
         }
-        let dataProvider = DataProvider(storageManager: self.serviceAssembly.storageManager)
+        let dataProvider = DataProvider(storageManager: self.serviceAssembly.storageService)
         vc.setDependencies(assembly: self,
                            dataProvider: dataProvider,
-                           model: ConversationsListModel(storageManager: self.serviceAssembly.storageManager))
+                           model: ConversationsListModel(storageService: self.serviceAssembly.storageService))
         return vc
     }
     
@@ -71,12 +68,12 @@ class PresentationAssembly: IPresentationAssembly {
         }
         vc.chatModel = with
         vc.setDependencies(assembly: self,
-                           model: ConversationViewModel(communicator: self.coreAssembly.communicator,
-                                                        storageManager: self.serviceAssembly.storageManager))
+                           model: ConversationViewModel(communicator: self.serviceAssembly.communicatorService,
+                                                        storageManager: self.serviceAssembly.storageService))
         return vc
     }
     
     func setCommunicatorDelegate(toSet: CommunicatorDelegate) {
-        self.coreAssembly.communicator.delegate = toSet
+        self.serviceAssembly.communicatorService.communicator.delegate = toSet
     }
 }

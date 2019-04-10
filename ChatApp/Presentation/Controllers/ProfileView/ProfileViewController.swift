@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
 
         self.view.addSubview(activityIndicator)
 
-        profile = self.assembly.serviceAssembly.storageManager.getUserProfile()
+        profile = self.assembly.serviceAssembly.storageService.getUserProfile()
         lastSavedProfile = profile.copy()
 
         setupUI()
