@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Чаты-->
+        <scene sceneID="vzE-2s-1qe">
+            <objects>
+                <viewController storyboardIdentifier="ConversationsListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="46J-Kx-VAo" customClass="ConversationsListViewController" customModule="ChatApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ufi-WO-tzF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="kwj-RT-Qcj">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="46J-Kx-VAo" id="eia-6C-fFa"/>
+                                    <outlet property="delegate" destination="46J-Kx-VAo" id="8X1-fX-gLT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kwj-RT-Qcj" firstAttribute="top" secondItem="9UI-L9-nWc" secondAttribute="top" id="ZRf-Q4-A1V"/>
+                            <constraint firstAttribute="bottom" secondItem="kwj-RT-Qcj" secondAttribute="bottom" id="cff-Co-VHf"/>
+                            <constraint firstItem="9UI-L9-nWc" firstAttribute="trailing" secondItem="kwj-RT-Qcj" secondAttribute="trailing" id="jVB-uI-San"/>
+                            <constraint firstItem="kwj-RT-Qcj" firstAttribute="leading" secondItem="9UI-L9-nWc" secondAttribute="leading" id="rzB-ii-gQQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9UI-L9-nWc"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Чаты" id="mt0-6Q-bQI">
+                        <barButtonItem key="leftBarButtonItem" title="Темы" id="biv-Fo-gcU">
+                            <connections>
+                                <action selector="themePickerOpenButtonClicked:" destination="46J-Kx-VAo" id="o4C-SB-eXA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="user-profile-icon" id="Coe-e9-RX7">
+                            <connections>
+                                <action selector="openProfile:" destination="46J-Kx-VAo" id="Onv-SX-Mx4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="kwj-RT-Qcj" id="HSA-DI-yAr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pko-56-9n5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="68" y="133"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="user-profile-icon" width="32" height="32"/>
+    </resources>
+</document>

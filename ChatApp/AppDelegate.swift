@@ -18,6 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         stateLogger.logState(stateName: "Inactive")
+        
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        
+        let mainAssembly = MainAssembly()
+        let navController = UINavigationController(rootViewController: mainAssembly.presentationAssembly.getConversationsListViewController())
+        
+        window?.rootViewController = navController
         return true
     }
 
