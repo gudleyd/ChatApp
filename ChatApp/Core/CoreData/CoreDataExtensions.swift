@@ -28,7 +28,7 @@ extension AppUser {
                     userToReturn = appUser
                 }
             } catch let error {
-                print("getAppUser ERROR:\n\(error)")
+                Debugger.shared.dbprint("getAppUser ERROR:\n\(error)")
             }
         }
         return userToReturn
@@ -56,7 +56,7 @@ extension User {
                     userToReturn = user
                 }
             } catch let error {
-                print("getUser ERROR:\n\(error)")
+                Debugger.shared.dbprint("getUser ERROR:\n\(error)")
             }
         }
         return userToReturn
@@ -119,7 +119,7 @@ extension CDConversation {
                     conversationToReturn = conversation
                 }
             } catch let error {
-                print("getUser ERROR:\n\(error)")
+                Debugger.shared.dbprint("getUser ERROR:\n\(error)")
             }
         }
         return conversationToReturn

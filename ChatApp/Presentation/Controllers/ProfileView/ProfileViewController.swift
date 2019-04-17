@@ -9,6 +9,12 @@
 import UIKit
 import AVFoundation
 
+protocol IPBPictureHasChosenDelegate: class {
+    
+    func PBPictureHasChosen(pbimage: PBImage)
+    
+}
+
 class ProfileViewController: UIViewController, UITextViewDelegate {
     
     var assembly: IPresentationAssembly!
@@ -29,7 +35,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var dismissEditing: UIButton!
     @IBOutlet weak var closeButton: UIButton!
 
-    var activityIndicator = UIActivityIndicatorView(style: .gray)
+    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     var profile: Profile = Profile()
     var lastSavedProfile: Profile = Profile()
 
@@ -50,8 +56,6 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
 
-        self.view.addSubview(activityIndicator)
-
         profile = self.assembly.serviceAssembly.storageService.getUserProfile()
         lastSavedProfile = profile.copy()
 
@@ -67,6 +71,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         nameTextField.addTarget(self, action: #selector(nameChanged(_:)), for: .allEditingEvents)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -101,11 +106,6 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         nameTextField.layer.masksToBounds = true
 
         statusTextField.layer.masksToBounds = true
-
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        activityIndicator.isHidden = true
 
         setProfile()
     }
@@ -239,6 +239,12 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
             }
         })
     }
+    
+    func openInternetGallery() {
+        let vc = self.assembly.getInternetGalleryViewController()
+        vc.model.delegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
 
     @IBAction func chooseProfileImageButtonTapped(_ sender: Any) {
         Debugger.shared.dbprint("Выберите изображение профиля")
@@ -250,6 +256,10 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
 
         imageAlert.addAction(UIAlertAction(title: "Медиатека", style: .default, handler: { _ in
             self.openGallery()
+        }))
+        
+        imageAlert.addAction(UIAlertAction(title: "Загрузить", style: .default, handler: { _ in
+            self.openInternetGallery()
         }))
 
         let deleteProfileImageAction = UIAlertAction(title: "Удалить фотографию", style: .default, handler: { [weak self] _ in
@@ -279,4 +289,20 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         statusTextField.endEditing(true)
     }
 
+}
+
+extension ProfileViewController {
+    func showActivityIndicator() {
+        self.activityIndicator.layer.masksToBounds = true
+        self.activityIndicator.layer.cornerRadius = 8
+        self.activityIndicator.backgroundColor = UIColor.lightGray
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.startAnimating()
+        self.view.addSubview(self.activityIndicator)
+    }
+    
+    func dismissActivityIndicator() {
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
+    }
 }

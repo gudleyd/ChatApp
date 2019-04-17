@@ -20,6 +20,8 @@ protocol IPresentationAssembly {
     
     func setCommunicatorDelegate(toSet: CommunicatorDelegate)
     
+    func getInternetGalleryViewController() -> InternetGalleryViewController
+    
     var serviceAssembly: IServiceAssembly { get }
 }
 
@@ -70,6 +72,16 @@ class PresentationAssembly: IPresentationAssembly {
         vc.setDependencies(assembly: self,
                            model: ConversationViewModel(communicator: self.serviceAssembly.communicatorService,
                                                         storageManager: self.serviceAssembly.storageService))
+        return vc
+    }
+    
+    func getInternetGalleryViewController() -> InternetGalleryViewController {
+        guard let vc = UIStoryboard(name: "InternetGallery",
+                                    bundle: nil)
+            .instantiateViewController(withIdentifier: "InternetGalleryViewController") as? InternetGalleryViewController else {
+            fatalError("Can't instantiate InternetGalleryViewController from storyboard")
+        }
+        vc.setDependencies(model: InternetGalleryModel(networkService: self.serviceAssembly.networkService))
         return vc
     }
     

@@ -101,7 +101,7 @@ class CoreDataStack: ICoreDataStack {
             do {
                 try context.save()
             } catch let err {
-                print("performSave ERROR:\n\(err)")
+                Debugger.shared.dbprint("performSave ERROR:\n\(err)")
             }
 
             if let parentContext = context.parent {

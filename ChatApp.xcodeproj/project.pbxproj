@@ -19,6 +19,7 @@
 		23091AB0222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AAF222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift */; };
 		23091AB4222EBD470088BCFB /* SThemePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AB3222EBD470088BCFB /* SThemePickerViewController.swift */; };
 		23091AB6222EC7110088BCFB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23091AB5222EC7110088BCFB /* UserDefaults.swift */; };
+		231CC44C22673AE30099B609 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231CC44B22673AE30099B609 /* Protocols.swift */; };
 		23263E1A225E65AE00F63730 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23263E19225E65AE00F63730 /* StorageService.swift */; };
 		23263E1C225E694800F63730 /* CommunicatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23263E1B225E694800F63730 /* CommunicatorService.swift */; };
 		23275353225E14F1008637A5 /* ConversationsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23275352225E14F1008637A5 /* ConversationsListModel.swift */; };
@@ -30,6 +31,18 @@
 		2339D4C2221FFC88002CC37C /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339D4C1221FFC88002CC37C /* ChatModel.swift */; };
 		2339D4CC221FFEAB002CC37C /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339D4CA221FFEAB002CC37C /* ChatTableViewCell.swift */; };
 		2339D4D022200C54002CC37C /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2339D4CF22200C54002CC37C /* ChatTableViewCell.xib */; };
+		2359B0652264E4B7008FED2F /* InternetGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2359B0642264E4B7008FED2F /* InternetGallery.storyboard */; };
+		2359B0672264E4CC008FED2F /* InternetGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B0662264E4CC008FED2F /* InternetGalleryViewController.swift */; };
+		2359B06A2264F374008FED2F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B0692264F374008FED2F /* Network.swift */; };
+		2359B06C2264F6FF008FED2F /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B06B2264F6FF008FED2F /* Requests.swift */; };
+		2359B06F22651E37008FED2F /* PixbayParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B06E22651E37008FED2F /* PixbayParsers.swift */; };
+		2359B0722265FC12008FED2F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B0712265FC12008FED2F /* NetworkService.swift */; };
+		2359B07522660388008FED2F /* InternetGalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B07422660388008FED2F /* InternetGalleryModel.swift */; };
+		2359B07822660888008FED2F /* InternetGallery+CollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B07722660888008FED2F /* InternetGallery+CollectionViewDelegate.swift */; };
+		2359B07A226608AF008FED2F /* InternetGallery+CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B079226608AF008FED2F /* InternetGallery+CollectionViewDataSource.swift */; };
+		2359B07D226628D7008FED2F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B07C226628D7008FED2F /* ImageCell.swift */; };
+		2359B07F22662EE9008FED2F /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B07E22662EE9008FED2F /* CustomLayout.swift */; };
+		2359B081226645F2008FED2F /* ProfileView+IPBPictureHasChosenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359B080226645F2008FED2F /* ProfileView+IPBPictureHasChosenDelegate.swift */; };
 		2363FCA122378857004EBEE5 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363FCA022378857004EBEE5 /* Profile.swift */; };
 		2367F637225DE345001D1115 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367F636225DE345001D1115 /* CommunicationManager.swift */; };
 		2367F639225DE35E001D1115 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367F638225DE35E001D1115 /* MultipeerCommunicator.swift */; };
@@ -77,6 +90,7 @@
 		23091AAF222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		23091AB3222EBD470088BCFB /* SThemePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SThemePickerViewController.swift; sourceTree = "<group>"; };
 		23091AB5222EC7110088BCFB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		231CC44B22673AE30099B609 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		23263E19225E65AE00F63730 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		23263E1B225E694800F63730 /* CommunicatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorService.swift; sourceTree = "<group>"; };
 		23275352225E14F1008637A5 /* ConversationsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListModel.swift; sourceTree = "<group>"; };
@@ -88,6 +102,18 @@
 		2339D4C1221FFC88002CC37C /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		2339D4CA221FFEAB002CC37C /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		2339D4CF22200C54002CC37C /* ChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
+		2359B0642264E4B7008FED2F /* InternetGallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InternetGallery.storyboard; sourceTree = "<group>"; };
+		2359B0662264E4CC008FED2F /* InternetGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetGalleryViewController.swift; sourceTree = "<group>"; };
+		2359B0692264F374008FED2F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		2359B06B2264F6FF008FED2F /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		2359B06E22651E37008FED2F /* PixbayParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixbayParsers.swift; sourceTree = "<group>"; };
+		2359B0712265FC12008FED2F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		2359B07422660388008FED2F /* InternetGalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetGalleryModel.swift; sourceTree = "<group>"; };
+		2359B07722660888008FED2F /* InternetGallery+CollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InternetGallery+CollectionViewDelegate.swift"; sourceTree = "<group>"; };
+		2359B079226608AF008FED2F /* InternetGallery+CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InternetGallery+CollectionViewDataSource.swift"; sourceTree = "<group>"; };
+		2359B07C226628D7008FED2F /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		2359B07E22662EE9008FED2F /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
+		2359B080226645F2008FED2F /* ProfileView+IPBPictureHasChosenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView+IPBPictureHasChosenDelegate.swift"; sourceTree = "<group>"; };
 		2363FCA022378857004EBEE5 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2367F636225DE345001D1115 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		2367F638225DE35E001D1115 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
@@ -220,10 +246,68 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2359B0632264E49C008FED2F /* InternetGallery */ = {
+			isa = PBXGroup;
+			children = (
+				2359B07B226628A8008FED2F /* View */,
+				2359B07322660376008FED2F /* Model */,
+				2359B0762266086F008FED2F /* Extensions */,
+				2359B0642264E4B7008FED2F /* InternetGallery.storyboard */,
+				2359B0662264E4CC008FED2F /* InternetGalleryViewController.swift */,
+			);
+			path = InternetGallery;
+			sourceTree = "<group>";
+		};
+		2359B0682264F367008FED2F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2359B06D22651D7A008FED2F /* Parsers */,
+				2359B0692264F374008FED2F /* Network.swift */,
+				2359B06B2264F6FF008FED2F /* Requests.swift */,
+				231CC44B22673AE30099B609 /* Protocols.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2359B06D22651D7A008FED2F /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				2359B06E22651E37008FED2F /* PixbayParsers.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		2359B07322660376008FED2F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2359B07422660388008FED2F /* InternetGalleryModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2359B0762266086F008FED2F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2359B07722660888008FED2F /* InternetGallery+CollectionViewDelegate.swift */,
+				2359B079226608AF008FED2F /* InternetGallery+CollectionViewDataSource.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2359B07B226628A8008FED2F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2359B07C226628D7008FED2F /* ImageCell.swift */,
+				2359B07E22662EE9008FED2F /* CustomLayout.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2367F62B225D2E25001D1115 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				2367F652225DEC2F001D1115 /* Assembly */,
+				2359B0682264F367008FED2F /* Network */,
 				2367F635225DE317001D1115 /* Multipeer */,
 				2367F62D225DD76F001D1115 /* Models */,
 				2300F909224A4BC4005C55CC /* CoreData */,
@@ -254,6 +338,7 @@
 		2367F62F225DD830001D1115 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2359B0632264E49C008FED2F /* InternetGallery */,
 				23091AB2222EBD1E0088BCFB /* SwiftThemePickerView */,
 				2378FACC221EF97B00C4733E /* ProfileView */,
 				2378FACD221EF98900C4733E /* ConversationsListView */,
@@ -332,6 +417,7 @@
 			children = (
 				2376668B2219B66B00CA3811 /* ProfileViewController-ImagePickerControllerDelegate.swift */,
 				2376668D2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift */,
+				2359B080226645F2008FED2F /* ProfileView+IPBPictureHasChosenDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -343,6 +429,7 @@
 				23275357225E1B37008637A5 /* PhotoService.swift */,
 				23263E19225E65AE00F63730 /* StorageService.swift */,
 				23263E1B225E694800F63730 /* CommunicatorService.swift */,
+				2359B0712265FC12008FED2F /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -522,6 +609,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2359B0652264E4B7008FED2F /* InternetGallery.storyboard in Resources */,
 				23E619C82223D68700E3D395 /* ChatView.storyboard in Resources */,
 				23945069221718FF0046F60F /* ServicePictures.xcassets in Resources */,
 				2339D4D022200C54002CC37C /* ChatTableViewCell.xib in Resources */,
@@ -583,6 +671,7 @@
 				2307FFF1220CB2B1008D351D /* ChatApp.xcdatamodeld in Sources */,
 				23BD701622412A4900530CE5 /* MessageInputAccessoryView.swift in Sources */,
 				23091AB0222EB7480088BCFB /* ThemePickerViewControllerDelegate.swift in Sources */,
+				2359B06C2264F6FF008FED2F /* Requests.swift in Sources */,
 				2367F64E225DE9A9001D1115 /* PresentationAssembly.swift in Sources */,
 				232D613C225286C600004260 /* CoreDataExtensions.swift in Sources */,
 				2367F645225DE5EF001D1115 /* ConversationView+FRCDelegate.swift in Sources */,
@@ -590,14 +679,19 @@
 				2367F647225DE620001D1115 /* ConversationView+MessageInput.swift in Sources */,
 				2307FFFE220CBC03008D351D /* service.swift in Sources */,
 				23BD7009223FC2C600530CE5 /* MultipeerMessage.swift in Sources */,
+				2359B07822660888008FED2F /* InternetGallery+CollectionViewDelegate.swift in Sources */,
 				2367F657225E001D001D1115 /* MainAssembly.swift in Sources */,
 				2367F639225DE35E001D1115 /* MultipeerCommunicator.swift in Sources */,
+				2359B0722265FC12008FED2F /* NetworkService.swift in Sources */,
 				2367F63E225DE418001D1115 /* ConversationsList+TableViewDataSource.swift in Sources */,
+				2359B06A2264F374008FED2F /* Network.swift in Sources */,
+				2359B06F22651E37008FED2F /* PixbayParsers.swift in Sources */,
 				236DFCB922241EEC006DE178 /* MessageBubbleTableViewCell.swift in Sources */,
 				2327535B225E1F8E008637A5 /* ProfileViewModel.swift in Sources */,
 				2307FFEB220CB2B1008D351D /* ProfileViewController.swift in Sources */,
 				23275353225E14F1008637A5 /* ConversationsListModel.swift in Sources */,
 				2339D4CC221FFEAB002CC37C /* ChatTableViewCell.swift in Sources */,
+				2359B07D226628D7008FED2F /* ImageCell.swift in Sources */,
 				23275356225E1649008637A5 /* ConversationViewModel.swift in Sources */,
 				2367F63C225DE3DF001D1115 /* ConversationList+TableViewDelegate.swift in Sources */,
 				23263E1C225E694800F63730 /* CommunicatorService.swift in Sources */,
@@ -607,11 +701,13 @@
 				232D613E2253680100004260 /* DataProvider.swift in Sources */,
 				2307FFE9220CB2B1008D351D /* AppDelegate.swift in Sources */,
 				2367F649225DE648001D1115 /* ConversationView+TableViewDataSource.swift in Sources */,
+				2359B081226645F2008FED2F /* ProfileView+IPBPictureHasChosenDelegate.swift in Sources */,
 				2367F643225DE5B8001D1115 /* ConversationView+TableViewDelegate.swift in Sources */,
 				23766689221995AB00CA3811 /* CustomImageView.swift in Sources */,
 				23263E1A225E65AE00F63730 /* StorageService.swift in Sources */,
 				23091AB6222EC7110088BCFB /* UserDefaults.swift in Sources */,
 				2376668E2219B69900CA3811 /* ProfileViewController-NavigationViewControllerDelegate.swift in Sources */,
+				231CC44C22673AE30099B609 /* Protocols.swift in Sources */,
 				2363FCA122378857004EBEE5 /* Profile.swift in Sources */,
 				23E619C62223D67D00E3D395 /* ConversationViewController.swift in Sources */,
 				2339D4C2221FFC88002CC37C /* ChatModel.swift in Sources */,
@@ -622,6 +718,10 @@
 				2367F637225DE345001D1115 /* CommunicationManager.swift in Sources */,
 				2367F654225DEC39001D1115 /* CoreAssembly.swift in Sources */,
 				2300F90B224A4BD4005C55CC /* CoreDataStack.swift in Sources */,
+				2359B0672264E4CC008FED2F /* InternetGalleryViewController.swift in Sources */,
+				2359B07522660388008FED2F /* InternetGalleryModel.swift in Sources */,
+				2359B07F22662EE9008FED2F /* CustomLayout.swift in Sources */,
+				2359B07A226608AF008FED2F /* InternetGallery+CollectionViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

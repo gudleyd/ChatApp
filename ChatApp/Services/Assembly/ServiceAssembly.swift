@@ -15,6 +15,8 @@ protocol IServiceAssembly {
     var photoService: IPhotoService { get set }
     
     var communicatorService: ICommunicatorService { get set }
+    
+    var networkService: INetworkService { get set }
 }
 
 class ServiceAssembly: IServiceAssembly {
@@ -22,11 +24,13 @@ class ServiceAssembly: IServiceAssembly {
     var coreAssembly: ICoreAssembly!
     var storageService: (IStorageService)
     var communicatorService: (ICommunicatorService)
+    var networkService: (INetworkService)
     
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly
         self.storageService = StorageService(coreAssembly: self.coreAssembly)
         self.communicatorService = CommunicatorService(coreAssembly: self.coreAssembly)
+        self.networkService = NetworkService(coreAssembly: self.coreAssembly)
     }
     
     var photoService: IPhotoService = PhotoService()
