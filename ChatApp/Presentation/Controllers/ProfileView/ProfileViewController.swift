@@ -143,12 +143,17 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     }
 
     @objc func profileSave() {
+        self.dismissActivityIndicator()
+        self.showActivityIndicator()
         self.model.saveUserProfile(profile: profile, completion: {
             let alert = UIAlertController(title: "Сохранено", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in}))
             self.lastSavedProfile = self.profile.copy()
             self.disableEditing()
             self.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.dismissActivityIndicator()
+            }
         })
     }
 
