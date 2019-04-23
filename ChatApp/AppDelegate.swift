@@ -22,11 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        let mainAssembly = MainAssembly()
-        let navController = UINavigationController(rootViewController: mainAssembly.presentationAssembly.getConversationsListViewController())
+        guard let mainWindow = window else {
+            fatalError("No mainWindow")
+        }
         
+        let mainAssembly = MainAssembly(mainWindow: mainWindow)
+        let navController = UINavigationController(rootViewController: mainAssembly.presentationAssembly.getConversationsListViewController())
         window?.rootViewController = navController
         return true
+    }
+    
+    @objc func drawTinkoff() {
+        print("long press")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Иван Лебедев. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 protocol IMainAssembly {
@@ -20,10 +21,14 @@ protocol IMainAssembly {
 
 class MainAssembly: IMainAssembly {
     
-    lazy var coreAssembly: ICoreAssembly = CoreAssembly()
+    var coreAssembly: (ICoreAssembly)
+    var serviceAssembly: (IServiceAssembly)
+    var presentationAssembly: (IPresentationAssembly)
     
-    lazy var serviceAssembly: IServiceAssembly = ServiceAssembly(coreAssembly: self.coreAssembly)
-    
-    lazy var presentationAssembly: IPresentationAssembly =
-        PresentationAssembly(serviceAssembly: self.serviceAssembly)
+    init(mainWindow: UIWindow) {
+        self.coreAssembly = CoreAssembly()
+        self.serviceAssembly = ServiceAssembly(coreAssembly: self.coreAssembly,
+                                               mainWindow: mainWindow)
+        self.presentationAssembly = PresentationAssembly(serviceAssembly: self.serviceAssembly)
+    }
 }

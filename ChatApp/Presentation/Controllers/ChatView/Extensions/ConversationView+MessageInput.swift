@@ -15,7 +15,7 @@ extension ConversationViewController: MessageInput {
                 if !success { Debugger.shared.dbprint("Message not Sended") }
             }
             DispatchQueue.main.async {
-                self.accessoryView?.textField.text = ""
+                self.accessoryView.textField.text = ""
             }
         }
     }

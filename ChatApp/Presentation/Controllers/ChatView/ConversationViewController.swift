@@ -17,6 +17,8 @@ class ConversationViewController: UIViewController {
     var assembly: IPresentationAssembly!
     var model: IConversationViewModel!
     
+    var customNavBarLabel: UILabel!
+    
     func setDependencies(assembly: IPresentationAssembly,
                          model: IConversationViewModel) {
         self.assembly = assembly
@@ -25,9 +27,7 @@ class ConversationViewController: UIViewController {
 
     @IBOutlet internal weak var tableView: UITableView!
     
-    let accessoryView = UINib(nibName: "MessageInputAccessory",
-                              bundle: nil)
-        .instantiate(withOwner: nil, options: nil)[0] as? MessageInputAccessoryView
+    var accessoryView: MessageInputAccessoryView!
 
     var fetchedResultsController: NSFetchedResultsController<CDMessage>!
 
@@ -36,9 +36,25 @@ class ConversationViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.dataProvider?.chatVC = self
+        guard let accessory = UINib(nibName: "MessageInputAccessory",
+                                    bundle: nil)
+            .instantiate(withOwner: nil, options: nil)[0] as? MessageInputAccessoryView else {
+                fatalError()
+        }
+        accessoryView = accessory
         
         self.title = chatModel?.name ?? "Unknown"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.customNavBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+        self.customNavBarLabel.text = self.title
+        self.customNavBarLabel.textColor = UIColor.black
+        self.customNavBarLabel.font = UIFont(name: "Helvetica-Bold", size: 20.0)
+        self.customNavBarLabel.backgroundColor = UIColor.clear
+        self.customNavBarLabel.adjustsFontSizeToFitWidth = true
+        self.customNavBarLabel.textAlignment = .center
+        self.navigationItem.titleView = self.customNavBarLabel
+        
+        self.dataProvider?.chatVC = self
 
         if let dp = dataProvider {
             fetchedResultsController = {
@@ -60,22 +76,38 @@ class ConversationViewController: UIViewController {
         tableView.register(nib2, forCellReuseIdentifier: "IncomingMessageBubbleTableViewCell")
 
         chatModel?.hasUnreadMessages = false
-        self.accessoryView?.delegate = self
+        self.accessoryView.delegate = self
 
-        self.accessoryView?.sendButton.isEnabled = self.model.connectWithUser(userID: chatModel?.userID ?? "")
+        self.accessoryView.sendButton.isEnabled = self.model.connectWithUser(userID: chatModel?.userID ?? "")
 
         setupObservers()
     }
 
     func enableSendings() {
         DispatchQueue.main.async {
-            self.accessoryView?.sendButton.isEnabled = true
+            UIView.animateKeyframes(withDuration: 1,
+                                    delay: 0,
+                                    options: [],
+                                    animations: {
+                                        self.customNavBarLabel.transform = CGAffineTransform(scaleX: 1.10, y: 1.10)
+                                        self.customNavBarLabel.textColor = UIColor.green
+            }, completion: nil)
+            self.accessoryView.animate(isOn: true)
+            self.accessoryView.sendButton.isEnabled = true
         }
     }
 
     func disableSendings() {
         DispatchQueue.main.async {
-            self.accessoryView?.sendButton.isEnabled = false
+            UIView.animateKeyframes(withDuration: 1,
+                                    delay: 0,
+                                    options: [],
+                                    animations: {
+                                        self.customNavBarLabel.transform = .identity
+                                        self.customNavBarLabel.textColor = UIColor.black
+            }, completion: nil)
+            self.accessoryView.animate(isOn: false)
+            self.accessoryView.sendButton.isEnabled = false
         }
     }
 
